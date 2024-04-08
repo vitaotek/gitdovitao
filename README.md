@@ -5,9 +5,9 @@ Git do Vitão
 * Comando Powershell mencionado:
 Execute o Powershell como administrador e cole este comando:
 
-" irm https://massgrave.dev/get | iex "
+>>>  irm https://massgrave.dev/get | iex  <<<
 
-(sem aspas)
+( a linha inteira, sem os sinais >>> e <<< )
 ***************************************************************
 
 //
