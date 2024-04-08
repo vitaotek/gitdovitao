@@ -7,7 +7,7 @@ Execute o Powershell como administrador e cole este comando:
 
 :::>   irm https://massgrave.dev/get | iex   <:::
 
-(a linha inteira)
+(a linha inteira, sem as setinhas!!!)
 ***************************************************************
 
 //
