@@ -27,8 +27,10 @@ Recriar o volume de recuperação usando o DISKPART:
 * select disk #
 (Onde # é o número que identifica seu hd com a partição do Windows instalado e as demais)
 
-Listar as partições do disco selecionado:
+Listar e selecionar as partições do disco selecionado:
 * list partition
+* list volume
+* select volume # (Onde # é o número do volume da partição que está sendo selecionada, e este número pode ser diferente do número que identifica a própria partição. Fique atento!)
 
 Criar a partição usando o espaço que deixamos disponível no final do HD:
 * create partition primary
