@@ -1,6 +1,14 @@
 Git do Vitão
 ------------
 
+
+***************************************************************
+Baixar Office: https://gravesoft.dev/download_windows_office/office_c2r_links/
+***************************************************************
+
+//
+//
+
 ***************************************************************
 * Comando Powershell mencionado:
 Execute o Powershell como administrador e cole este comando:
