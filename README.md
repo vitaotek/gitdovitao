@@ -44,8 +44,10 @@ Criar a partição usando o espaço que deixamos disponível no final do HD:
 
 Primeiro verifique o tipo de tabela de partição do seu disco. Se é GPT ou se é MBR.
 * list disk
+
 Caso apareça um * na coluna GPT então o disco está utilizando a tabela em GPT. Caso não apareça o asterisco significa que a partição utiliza uma tabela MBR.
 Se o disco for GPT:
+
 * create partition primary
 * format quick fs=ntfs label="Recovery"
 * set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"
