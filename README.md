@@ -3,6 +3,8 @@ Git do Vitão
 
 
 ***************************************************************
+Baixar Windows 11: https://massgrave.dev/windows_11_links
+Baixar Windows 10: https://massgrave.dev/windows_10_links
 Baixar Office: https://gravesoft.dev/download_windows_office/office_c2r_links/
 ***************************************************************
 
