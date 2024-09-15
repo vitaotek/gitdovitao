@@ -201,3 +201,10 @@ Verificamos se a partição está ativa e funcional:
 * reagentc /info
 
 **************************************************************
+
+//
+//
+
+***************************************************************
+
+* https://bit.ly/switchdovitao :P
