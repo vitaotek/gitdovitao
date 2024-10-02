@@ -4,13 +4,13 @@ Git do Vitão
 
 ***************************************************************
 
-Baixar Windows 11 Enterprise LTSC: https://massgrave.dev/windows_ltsc_links
+Baixar Windows 11 Enterprise LTSC 2024 FINAL em pt-BR: https://massgrave.dev/windows_ltsc_links
 
-Baixar Windows 11: https://massgrave.dev/windows_11_links
+Baixar Windows 11 24H2 FINAL em pt-BR: https://massgrave.dev/windows_11_links
 
-Baixar Windows 10: https://massgrave.dev/windows_10_links
+Baixar Windows 10 22H2 FINAL em pt-BR: https://massgrave.dev/windows_10_links
 
-Baixar Office: https://gravesoft.dev/download_windows_office/office_c2r_links/
+Baixar Office 2024 FINAL em pt-BR: https://gravesoft.dev/download_windows_office/office_c2r_links/
 
 ***************************************************************
 
