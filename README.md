@@ -19,6 +19,20 @@ Baixar Office 2024 FINAL em pt-BR: https://gravesoft.dev/download_windows_office
 
 ***************************************************************
 
+Como converter Windows 11 Enterprise LTSC 2024 para Windows 11 IoT Enterprise LTSC 2024
+
+* sc config licensemanager start= auto & net start licensemanager
+* sc config wuauserv start= auto & net start wuauserv
+* changepk.exe /ProductKey CGK42-GYN6Y-VD22B-BX98W-J8JXD
+* Reinicie o computador...
+
+***************************************************************
+
+//
+//
+
+***************************************************************
+
 BCP47 tag para as línguas disponíveis para o Windows 11 Enterprise LTSC:
 
 Tag da língua ---------	Língua
