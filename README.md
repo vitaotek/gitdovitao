@@ -237,6 +237,21 @@ Reativar a partição de recuperação que criamos:
 Verificamos se a partição está ativa e funcional:
 * reagentc /info
 
+***************************************************************
+
+//
+//
+
+**************************************************************
+
+Desativar o UAC:
+
+* Abra o RegEdit;
+* Acesse o caminho: HKEY_LOCAL_MACHINE > Software > Microsoft > Windows > Current Version > Policies > System
+* Dois cliques na chave "EnableLUA";
+* Mude o valor para "0"
+* Reinicie o computador.
+
 **************************************************************
 
 //
