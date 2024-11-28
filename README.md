@@ -7,6 +7,7 @@ Git do Vitão
 Vídeo: Como instalar Microsoft Store no Windows 11 IoT Enterprise LTSC
 
 Comando para ser executado no Poweshell (como administador): wsreset -i
+
 Link: https://apps.microsoft.com/detail/9nblggh4nns1
 
 ***************************************************************
