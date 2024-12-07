@@ -4,6 +4,15 @@ Git do Vitão
 
 ***************************************************************
 
+CapCut usado no vídeo: https://drive.google.com/file/d/1vb-l813m84z28h0cWcNw8llfnlznldty/view?usp=drive_link
+
+***************************************************************
+
+//
+//
+
+***************************************************************
+
 Vídeo: https://youtu.be/6-kbhae_2LU
 
 "Como instalar Microsoft Store no Windows 11 IoT Enterprise LTSC"
