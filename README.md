@@ -4,7 +4,7 @@ Git do Vitão
 
 ***************************************************************
 
-Vídeo: Como montaraAmbiente para teste de antivírus usando Python e Git
+Vídeo: Como montara ambiente para teste de antivírus usando Python e Git
 
 Link: https://youtu.be/saPuMw55MH4&list=UULFUNyU0HewM1JQVVKMAEAfyQ
 
