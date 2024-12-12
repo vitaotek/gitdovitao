@@ -4,6 +4,35 @@ Git do Vitão
 
 ***************************************************************
 
+Vídeo: Como montaraAmbiente para teste de antivírus usando Python e Git
+
+Link: https://youtu.be/saPuMw55MH4&list=UULFUNyU0HewM1JQVVKMAEAfyQ
+
+Script usado no vídeo: https://github.com/infinitelyjames/Malx
+
+Python: https://www.python.org/
+
+Git: https://git-scm.com/
+
+Dependências: 
+
+psutil: pip install psutil
+
+colorama: pip install colorama
+
+matplotlib: pip install matplotlib
+
+GitPython: pip install GitPython
+
+xdrlib: pip install py-xdrlib
+
+***************************************************************
+
+//
+//
+
+***************************************************************
+
 CapCut usado no vídeo: https://drive.google.com/file/d/1vb-l813m84z28h0cWcNw8llfnlznldty/view?usp=drive_link
 
 ***************************************************************
