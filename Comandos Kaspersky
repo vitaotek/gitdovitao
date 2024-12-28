@@ -1,0 +1,160 @@
+Vídeo: https://youtu.be/aM57RFksAQA
+Título: Como executar SCAN pelo KASPERSKY usando SCRIPT com Agendamento
+
+/////////////////////////////////////////////////////////////////
+
+Lista de comandos comuns para gerenciamento do Kaspersky:
+
+START: Inicia um componente ou uma tarefa.
+STOP: Interrompe um componente ou uma tarefa. O comando só pode ser executado se a senha atribuída pela interface do Kaspersky Internet Security for inserida.
+STATUS: Exibe o status atual do componente ou da tarefa na tela.
+STATISTICS: Exibe estatísticas do componente ou da tarefa na tela.
+HELP: Exibe a lista de comandos e informações de sintaxe de comando.
+SCAN: Verificação de vírus em objetos.
+UPDATE: Inicia a atualização do aplicativo.
+ROLLBACK: Reverte para a última atualização do Kaspersky Internet Security feita. O comando só pode ser executado se a senha atribuída pela interface do Kaspersky Internet Security for inserida.
+EXIT: Fecha o aplicativo. O comando só pode ser executado se a senha atribuída pela interface do aplicativo for inserida.
+IMPORT: Importa as configurações de proteção do aplicativo. O comando só pode ser executado se a senha atribuída pela interface do Kaspersky Internet Security for inserida.
+EXPORT: Exporta as configurações de proteção do aplicativo.
+
+////////////////////////////////////////////////////////////
+
+Lista de comandos comuns para gerenciamento do mecanismo de verificação de malware do Kaspersky:
+
+<object to scan> – este parâmetro fornece a lista de objetos que são verificados quanto a código malicioso.
+O parâmetro pode incluir vários valores separados por espaços da lista fornecida.
+
+<files>
+Lista de caminhos para os arquivos e pastas a serem verificados.
+Você pode inserir um caminho absoluto ou relativo para o arquivo. Os itens na lista são separados por um espaço.
+
+Comentários: Se o nome do objeto contiver um espaço, ele deve ser colocado entre aspas. Se for feita referência a uma pasta específica, todos os arquivos nesta pasta serão verificados.
+
+/MEMORY
+Objetos RAM.
+
+/STARTUP
+Objetos de inicialização.
+
+/MAIL
+Caixas de correio.
+
+/REMDRIVES
+Todas as unidades de mídia removíveis.
+
+/FIXDRIVES
+Todas as unidades internas.
+
+/NETDRIVES
+Todas as unidades de rede.
+
+/QUARANTINE
+Objetos em quarentena.
+
+/ALL
+Verificação completa do computador.
+
+/@:<filelist.lst>
+Caminho para um arquivo contendo uma lista de objetos e catálogos a serem verificados. Você pode inserir um caminho absoluto ou relativo para o arquivo com a lista. O caminho deve ser colocado sem aspas, mesmo que contenha um espaço.
+O arquivo com a lista de objetos deve estar em um formato de texto. Cada objeto de verificação deve ser listado em uma linha separada.
+É aconselhável especificar caminhos absolutos para verificar objetos no arquivo. Ao especificar um caminho relativo, você especifica o caminho relativo ao arquivo executável de um aplicativo, não relativo ao arquivo com a lista de objetos de verificação.
+
+<action>
+Este parâmetro determina qual ação será tomada com objetos maliciosos detectados durante a verificação. Se este parâmetro não tiver sido definido, a ação padrão é aquela com o valor para /i8.
+Se você estiver trabalhando no modo automático, o Kaspersky Internet Security aplicará automaticamente a ação recomendada pelos especialistas da Kaspersky Lab quando objetos perigosos forem detectados. Uma ação que corresponde ao valor do parâmetro <action> é ignorada.
+
+/i0
+Não tome nenhuma ação em relação ao objeto; registre informações sobre isso no relatório.
+
+/i1
+Trate objetos infectados e, se a desinfecção for impossível, pule.
+
+/i2
+Trate objetos infectados e, se a desinfecção falhar, exclua. Não exclua objetos infectados de objetos compostos. Exclua objetos compostos infectados com cabeçalhos executáveis ​​(arquivos sfx) (esta é a configuração padrão).
+
+/i3
+Trate objetos infectados e, se a desinfecção falhar, exclua. Exclua todos os objetos compostos completamente se as partes infectadas não puderem ser excluídas.
+
+/i4
+Exclua objetos infectados. Exclua todos os objetos compostos completamente se as partes infectadas não puderem ser excluídas.
+
+/i8
+Solicite ao usuário uma ação se um objeto infectado for detectado.
+
+/i9
+Solicite ao usuário uma ação no final da verificação.
+
+<file types>
+Este parâmetro define os tipos de arquivo que estão sujeitos a uma verificação antivírus. Por padrão, se este parâmetro não for definido, apenas arquivos infectados por conteúdo serão verificados.
+
+/fe
+Verifique apenas arquivos infectados por extensão.
+
+/fi
+Verifique apenas arquivos infectados por conteúdo.
+
+/fa
+Verificar todos os arquivos.
+
+<exclusions>
+Este parâmetro define objetos que são excluídos da verificação.
+O parâmetro pode incluir vários valores separados por espaços da lista fornecida.
+
+-e:a
+Não verificar arquivos.
+
+-e:b
+Não verificar bancos de dados de e-mail.
+
+-e:m
+Não verificar e-mails de texto simples.
+
+-e:<filemask>
+Não verificar objetos que correspondem à máscara.
+
+-e:<seconds>
+Ignorar objetos que são verificados por mais tempo do que o tempo especificado no parâmetro <seconds>.
+
+-es:<size>
+Ignorar objetos com tamanho (em MB) excedendo o valor especificado na configuração <size>.
+Esta configuração está disponível somente para arquivos compostos (como arquivos).
+
+<configuration file>
+Define o caminho para o arquivo de configuração que contém as configurações do aplicativo para a verificação.
+O arquivo de configuração está em formato de texto e contém o conjunto de parâmetros de linha de comando para a verificação antivírus.
+Você pode inserir um caminho absoluto ou relativo para o arquivo. Se este parâmetro não for definido, os valores definidos na interface do aplicativo serão usados.
+
+/C:<file_name>
+Use os valores das configurações especificados no arquivo de configuração <file_name>.
+
+<report settings>
+Este parâmetro determina o formato do relatório sobre os resultados da verificação.
+Você pode usar um caminho absoluto ou relativo para o arquivo. Se a configuração não for definida, os resultados da verificação serão exibidos na tela e todos os eventos serão mostrados.
+
+/R:<report_file>
+Registre eventos importantes somente neste arquivo.
+
+/RA:<report_file>
+Registre todos os eventos neste arquivo.
+
+<advanced settings>
+Configurações que definem o uso de tecnologias de verificação antivírus.
+
+/iChecker=<on|off>
+Habilite/desabilite o uso da tecnologia iChecker.
+
+/iSwift=<on|off>
+Habilite/desabilite o uso da tecnologia iSwift.
+
+////////////////////////////////////////////////////////////
+
+Script usado no vídeo:
+
+@echo off
+pushd "C:\Program Files (x86)\Kaspersky Lab\Kaspersky 21.19"
+start "" avp.com SCAN "C:\Downloads" /i9 /fa /RA:C:\Users\Victor\Desktop\scan.log
+pause
+
+////////////////////////////////////////////////////////////
+
+Mais informações na ajuda online do Kaspersky: https://support.kaspersky.com.br/kes11/141652
