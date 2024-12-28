@@ -1,0 +1,8 @@
+Como converter Windows 11 Enterprise LTSC 2024 para Windows 11 IoT Enterprise LTSC 2024.
+
+Vídeo: https://youtu.be/b2rwNff4GlM
+
+* sc config licensemanager start= auto & net start licensemanager
+* sc config wuauserv start= auto & net start wuauserv
+* changepk.exe /ProductKey CGK42-GYN6Y-VD22B-BX98W-J8JXD
+* Reinicie o computador...
