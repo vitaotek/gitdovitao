@@ -1,0 +1,16 @@
+Título: Como montar ambiente para teste de antivírus usando Python e Git
+Vídeo: https://youtu.be/saPuMw55MH4
+
+* Script usado no vídeo: https://github.com/infinitelyjames/Malx
+
+* Python: https://www.python.org/
+
+* Git: https://git-scm.com/
+
+Dependências:
+
+psutil: pip install psutil
+colorama: pip install colorama
+matplotlib: pip install matplotlib
+GitPython: pip install GitPython
+xdrlib: pip install py-xdrlib
