@@ -1,0 +1,19 @@
+COMO BAIXAR ÁUDIO, VÍDEO OU AMBOS DO YOUTUBE E MAIS DE 100 SITES DE CONTEÚDO MULTIMÍDIA!
+
+Obs.: Seguindo este tutorial você conseguirá baixar qualquer vídeo do Youtube com todas as resoluções disponíveis. Diferente de ferramentas online e outras, aqui você vai de fato baixar o que o Youtube armazena quando um Youtuber envia um conteúdo para a plataforma, ou seja, melhor qualidade impossível.
+
+Você vai precisar de dois executáveis.
+
+* yt-dlp
+Pode ser obtido em seu GitHub oficial: https://github.com/yt-dlp/yt-dlp
+
+Na página do projeto, clica em "Releases", baixe o "yt-dlp.exe". Salve em uma pasta.
+
+* yt-dlp-gui
+Pode ser obtido em seu Github oficial: https://github.com/kannagi0303/yt-dlp-gui
+
+Na página do projeto, clica em "Releases", baixe o "yt-dlp-gui.exe" e salve na mesma pasta do executável anterior.
+
+Agora é só executar o yt-dlp-gui, colar um link de algum vídeo, escolher o que deseja baixar e se divertir.
+
+Ps.: Existia um vídeo no canal sobre esta ferramenta, porém, o mesmo sofreu "cerol fininho" do Yt.
