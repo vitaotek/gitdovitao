@@ -4,12 +4,12 @@ Você pode fazer este procedimento indo no app Configurações, Atualização e 
 
 Estas são as chaves genéricas, fornecidas pela própria Microsoft, para ativação de edições do Windows 10, mas tenha em mente que estas chaves não servem para ativação da sua instalação, e sim para "identificar" qual edição do Windows irá utilizar.
 
-Win 10 Home: YTMG3-N6DKC-DKB77-7M9GH-8HVX7
-Win 10 Pro: VK7JG-NPHTM-C97JM-9MPGT-3V66T
-Win 10 Home N: 4CPRK-NM3K3-X6XXQ-RXX86-WXCHW
-Win 10 Home Single Language: BT79Q-G7N6G-PGBYW-4YWX6-6F4BT
-Win 10 Home Country Specific: 7B6NC-V3438-TRQG7-8TCCX-H6DDY
-Win 10 Professional N: 2B87N-8KFHP-DKV6R-Y2C8J-PKCKT
+Windows 10 Home: YTMG3-N6DKC-DKB77-7M9GH-8HVX7
+Windows 10 Pro: VK7JG-NPHTM-C97JM-9MPGT-3V66T
+Windows 10 Home N: 4CPRK-NM3K3-X6XXQ-RXX86-WXCHW
+Windows 10 Home Single Language: BT79Q-G7N6G-PGBYW-4YWX6-6F4BT
+Windows 10 Home Country Specific: 7B6NC-V3438-TRQG7-8TCCX-H6DDY
+Windows 10 Professional N: 2B87N-8KFHP-DKV6R-Y2C8J-PKCKT
 
 Você pode, também, utilizar o comando a seguir:
 
@@ -17,7 +17,7 @@ Changepk.exe /ProductKey VK7JG-NPHTM-C97JM-9MPGT-3V66T
 
 Lembre-se de executar este comando pelo Prompt de Comandos (CMD) e não esquece de executá-lo como administrador.
 
-Ah! Já ia esquecendo, o mesmo procedimento e o mesmo comando funcionam no Windows 11, porém, as chaves são diferentes.
+Ah! Já ia esquecendo, o mesmo procedimento e o mesmo comando funcionam no Windows 11.
 
 Windows 11 Home: YTMG3-N6DKC-DKB77-7M9GH-8HVX7
 Windows 11 Home N: 4CPRK-NM3K3-X6XXQ-RXX86-WXCHW
