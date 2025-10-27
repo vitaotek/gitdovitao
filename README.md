@@ -4,6 +4,7 @@ Git do Vitão
 
 Bem-vindo(a) ao meu GitHub.
 
-![EU-FRENTE](https://github.com/user-attachments/assets/de69bd77-6b35-45bf-bef3-3fb4da8aaaa8)
+<img width="690" height="900" alt="VITAOTUB-GIT" src="https://github.com/user-attachments/assets/7c227753-7481-4a4d-9afa-c349255db830" />
 
-Conheça meu canal: https://www.youtube.com/@vitaotek
+
+Conheça meu canal: https://www.youtube.com/@vitaotub
