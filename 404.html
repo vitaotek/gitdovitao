@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Página não encontrada | VitãoTub</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .error-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-code {
+            font-family: 'Satoshi', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .redirect-text {
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        #countdown {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        .back-button {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: var(--gradient-brand);
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="error-container">
+        <h1 class="error-code">404</h1>
+        <p class="error-message">Ops! O conteúdo que você procura não foi encontrado.</p>
+        
+        <p class="redirect-text">
+            Você será redirecionado para a página inicial em <span id="countdown">10</span> segundos...
+        </p>
+
+        <a href="index.html" class="back-button">Voltar Agora</a>
+    </main>
+
+    <script>
+        let seconds = 10;
+        const countdownElement = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
