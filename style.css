@@ -442,7 +442,21 @@ h2::after {
 
 
 /* 10. MODAL */
-.video-modal { position: fixed; inset: 0; z-index: 2000; display: none; justify-content: center; align-items: center; }
+.video-modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+.video-modal.active {
+    display: flex !important;
+}
 .video-modal.open { display: flex; }
 .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); }
 .modal-content { position: relative; width: 90%; max-width: 1000px; z-index: 2; }
