@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vitaotek.github.io/gitdovitao/</loc>
-    <lastmod>2026-03-16</lastmod>
+    <loc>https://www.vitaotub.com/</loc>
+    <lastmod>2026-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
-    <loc>https://vitaotek.github.io/gitdovitao/#stats</loc>
+    <loc>https://www.vitaotub.com/#stats</loc>
     <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://vitaotek.github.io/gitdovitao/#featured-videos</loc>
+    <loc>https://www.vitaotub.com/#featured-videos</loc>
     <priority>0.9</priority>
   </url>
-
   <url>
-    <loc>https://vitaotek.github.io/gitdovitao/#social-media</loc>
+    <loc>https://www.vitaotub.com/#social-media</loc>
     <priority>0.7</priority>
   </url>
-
   <url>
-    <loc>https://vitaotek.github.io/gitdovitao/#contact</loc>
+    <loc>https://www.vitaotub.com/#contact</loc>
     <priority>0.5</priority>
   </url>
 </urlset>
