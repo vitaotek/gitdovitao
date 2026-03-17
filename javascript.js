@@ -9,7 +9,7 @@ const CONFIG = {
     iframeTargetId: 'modal-iframe-target',
     toastContainerId: 'toast-container',
     // URL do seu Google Apps Script
-    scriptURL: 'https://script.google.com/macros/s/AKfycbxigP8Uoc8evq7x6JqREKNoOInZvM7wNgcmPbQs0FynIOFjRKEP-3EgIOtxdtm__G2Bog/exec'
+    scriptURL: 'https://script.google.com/macros/s/AKfycbzLNx64neZy31lECDcwrQdBeLd_rIobdmybG-lv8tFm1wSsP6HRufApu4QWC28lSnOl4g/exec'
 };
 
 const state = {
