@@ -191,7 +191,17 @@ h2::after {
     filter: blur(40px);
 }
 
+/* Garante que o modal de vídeo apareça quando ativo */
+.video-modal.active {
+    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+}
 
+/* Garante que a popup de e-mail apareça quando ativa */
+.toast-overlay.show {
+    display: flex !important;
+}
 
 .about-wrapper {
     display: flex;

@@ -113,7 +113,7 @@ function closeToast() {
     }
 }
 
-// Fechar com teclado ou cliques extras
+// Fechar com teclado (Esc) ou cliques extras
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeVideo();
@@ -121,9 +121,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Listener de clique específico para o botão de fechar da popup
+// Listener específico para o botão de fechar da popup
 document.addEventListener('click', function(e) {
-    // Só executa o fechar se o clique for exatamente no botão de fechar do toast
     if (e.target.classList.contains('toast-close-btn')) {
         closeToast();
     }
