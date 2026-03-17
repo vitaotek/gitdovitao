@@ -115,44 +115,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Lógica do Formulário de Contato
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = contactForm.querySelector('button');
-            const originalBtnText = submitBtn.innerText;
-            
-            const formData = {
-                nome: contactForm.querySelector('input[type="text"]').value,
-                email: contactForm.querySelector('input[type="email"]').value,
-                mensagem: contactForm.querySelector('textarea').value
-            };
+// Lógica do Formulário de Contato com Validação e Anti-Spam
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = contactForm.querySelector('button');
+        const originalBtnText = submitBtn.innerText;
+        
+        // 1. Verificação de Honeypot (Anti-Spam)
+        const honey = document.getElementById('honeypot').value;
+        if (honey) {
+            console.warn("Spam detectado.");
+            return; // Interrompe o envio silenciosamente
+        }
 
-            submitBtn.innerText = "Enviando...";
-            submitBtn.disabled = true;
+        // 2. Captura e Validação dos Dados
+        const nome = contactForm.querySelector('input[type="text"]').value.trim();
+        const email = contactForm.querySelector('input[type="email"]').value.trim();
+        const mensagem = contactForm.querySelector('textarea').value.trim();
 
-            try {
-                await fetch(CONFIG.scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    body: JSON.stringify(formData)
-                });
+        if (nome.length < 3) {
+            alert("Por favor, insira seu nome completo.");
+            return;
+        }
 
-                if (toastContainer) {
-                    toastContainer.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                }
+        if (mensagem.length < 10) {
+            alert("A mensagem está muito curta. Poderia detalhar um pouco mais?");
+            return;
+        }
 
-                contactForm.reset();
+        const formData = { nome, email, mensagem };
 
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Houve um problema no envio. Verifique sua conexão.');
-            } finally {
-                submitBtn.innerText = originalBtnText;
-                submitBtn.disabled = false;
+        // 3. Envio
+        submitBtn.innerText = "Enviando...";
+        submitBtn.disabled = true;
+
+        try {
+            await fetch(CONFIG.scriptURL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                body: JSON.stringify(formData)
+            });
+
+            if (toastContainer) {
+                toastContainer.classList.add('show');
+                document.body.style.overflow = 'hidden';
             }
-        });
-    }
-});
+
+            contactForm.reset();
+
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Houve um problema no envio. Verifique sua conexão.');
+        } finally {
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
