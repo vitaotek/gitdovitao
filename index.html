@@ -347,12 +347,12 @@
             
             <textarea name="mensagem" placeholder="Sua mensagem..." rows="5" required></textarea>
 
-            <div class="checkbox-group" style="margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <input type="checkbox" id="human-check" name="human-check" required>
-                <label for="human-check" style="font-size: 0.9rem; color: var(--text-dim); cursor: pointer;">
-                    Eu não sou um robô e concordo em enviar estes dados.
-                </label>
-            </div>
+            <div class="checkbox-group" style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+    <input type="checkbox" id="human-check" name="human-check" required style="cursor: pointer; width: 18px; height: 18px;">
+    <label for="human-check" style="font-size: 0.9rem; color: var(--text-dim); cursor: pointer; user-select: none;">
+        Eu não sou um robô e concordo em enviar estes dados.
+    </label>
+</div>
 
             <button type="submit">Enviar Mensagem</button>
         </form>
