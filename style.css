@@ -461,6 +461,22 @@ button[type="submit"] { padding: 20px; background: var(--primary-purple); color:
     user-select: none;
 }
 
+.checkbox-group {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%; /* Ocupa a largura total para poder centralizar */
+}
+
+.checkbox-group label {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-align: center;
+}
+
 input[type="checkbox"]:focus {
     outline: 2px solid var(--primary-purple);
     outline-offset: 2px;
@@ -485,6 +501,12 @@ input[type="checkbox"]:focus {
 
 .toast.show {
     transform: translateY(0);
+}
+
+#toast-container.show {
+    display: flex !important; /* O !important é vital para o GitHub Pages */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .toast-content {
