@@ -457,6 +457,15 @@ input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid r
 input:focus, textarea:focus { border-color: var(--primary-purple); }
 button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
 
+.checkbox-container label {
+    user-select: none;
+}
+
+input[type="checkbox"]:focus {
+    outline: 2px solid var(--primary-purple);
+    outline-offset: 2px;
+}
+
 /* Estilo da Popup de Sucesso (Toast) */
 .toast {
     position: fixed;
@@ -493,17 +502,15 @@ button[type="submit"] { padding: 20px; background: var(--primary-purple); color:
 /* Fundo escurecido total */
 .toast-overlay {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none; /* Escondido por padrão */
     justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    z-index: 10000;
-    backdrop-filter: blur(10px);
+    align-items: center;
+    z-index: 9999;
 }
 
 /* Card Retangular Largo */
@@ -518,6 +525,10 @@ button[type="submit"] { padding: 20px; background: var(--primary-purple); color:
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
 }
 
+/* Esta é a classe que o JavaScript adiciona */
+.toast-overlay.show {
+    display: flex !important;
+}
 .toast-overlay.show { opacity: 1; visibility: visible; }
 .toast-overlay.show .toast-central { transform: scale(1); }
 

@@ -334,7 +334,7 @@
 </section>
 
 
-        <section id="contact">
+<section id="contact">
             <div class="container">
                 <h2>Contato</h2>
                 <form id="contact-form">
@@ -343,9 +343,14 @@
                         <input type="email" name="email" placeholder="Email" required>
                     </div>
                     <textarea name="mensagem" placeholder="Sua mensagem..." rows="5" required></textarea>
-		    <div style="display:none;">
-		    <input type="text" name="honeypot" id="honeypot" tabindex="-1" autocomplete="off">
-		    </div>
+                    
+                    <div class="checkbox-container" style="margin: 15px 0; display: flex; align-items: flex-start; gap: 10px; text-align: left;">
+                        <input type="checkbox" id="human-check" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-purple);">
+                        <label for="human-check" style="font-size: 0.9rem; color: var(--text-dim); cursor: pointer;">
+                            Eu não sou um robô e concordo em enviar estes dados.
+                        </label>
+                    </div>
+
                     <button type="submit">Enviar Mensagem</button>
                 </form>
             </div>
@@ -376,7 +381,7 @@
             </div>
             <h3>Obrigado pelo contato.</h3>
             <p>Em breve responderei ao seu e-mail.</p>
-            <button class="toast-close-btn">Entendido</button>
+            <button type="button" class="toast-close-btn" onclick="closeToast()">Entendido</button>
         </div>
     </div>
 </div>
