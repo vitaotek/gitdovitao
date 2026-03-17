@@ -1,0 +1,819 @@
+/* 1. FONTES E VARIÁVEIS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@700,900&display=swap');
+
+:root {
+    --bg-color: #050505;
+    --primary-purple: #8b5cf6;
+    --primary-blue: #3b82f6;
+    --card-bg: #111111;
+    --text-main: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.7);
+    --container-max: 1100px;
+    --gradient-brand: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. RESET E BASE */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+h1, h2, h3, nav a, button { font-family: 'Satoshi', sans-serif; }
+
+/* 3. BACKGROUND VISUAL */
+.bg-wrapper { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.bg-gradient-1 {
+    position: absolute; width: 600px; height: 600px; top: -100px; left: -100px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+}
+.bg-noise { position: absolute; inset: 0; opacity: 0.03; background-image: url('https://grainy-gradients.vercel.app/noise.svg'); }
+
+/* 4. HEADER E NAVEGAÇÃO */
+header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    padding: 20px 0; background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.header-content { max-width: var(--container-max); margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+header h1 span { color: var(--primary-purple); }
+nav ul { display: flex; gap: 30px; list-style: none; }
+nav a { 
+    text-decoration: none; color: var(--text-dim); transition: var(--transition-smooth); 
+    font-weight: 500; font-size: 0.95rem; position: relative; padding: 8px 0; 
+}
+nav a:hover { color: var(--text-main); }
+nav a::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; width: 100%; height: 3px;
+    background: var(--gradient-brand); border-radius: 10px;
+    transform: translateX(-50%) scaleX(0); transition: var(--transition-smooth);
+}
+nav a:hover::after { transform: translateX(-50%) scaleX(1); }
+
+
+
+/* 5. ESTRUTURA DE SEÇÕES */
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 20px; width: 100%; }
+section { padding: 90px 0; }
+.first-section { padding-top: 160px; }
+
+h2 { 
+    font-size: 2.5rem; margin-bottom: 50px; font-weight: 900; 
+    text-align: center; position: relative; padding-bottom: 20px;
+}
+h2::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 4px; background: var(--gradient-brand); border-radius: 10px;
+}
+
+
+.logo-link {
+    text-decoration: none;
+    color: inherit; /* Mantém a cor original do H1 */
+    cursor: pointer;
+}
+
+.logo-link:hover h1 {
+    opacity: 0.8; /* Efeito opcional ao passar o mouse */
+    transition: var(--transition-smooth);
+}
+
+
+/* 6. GRID E CARDS BASE */
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 20px; 
+}
+
+
+
+
+/* VÍDEO PRINCIPAL */
+
+/* Ajuste da Seção Hero Estilo Courseline */
+.hero-content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-text {
+    max-width: 800px;
+    margin-bottom: 60px; /* Espaço entre o texto e o vídeo */
+}
+
+.hero-badge {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary-purple);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.hero-text h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* Fonte fluida */
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+/* Botões Estilo Template */
+.hero-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--primary-purple);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* Ajuste do Vídeo Principal */
+.main-hero-video {
+    width: 100%;
+    max-width: 900px; /* Tamanho do vídeo no estilo do template */
+    margin: 0 auto;
+}
+
+.video-frame {
+    border-radius: 24px; /* Bordas mais arredondadas como no Framer */
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+.video-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(40px);
+}
+
+
+
+.about-wrapper {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+}
+
+.about-text strong {
+    color: var(--primary-purple);
+}
+
+.specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+    justify-content: center; /* Centraliza horizontalmente */
+    width: 100%;             /* Garante que ocupe a largura total para alinhar */
+}
+
+.badge {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: var(--primary-purple);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    transition: var(--transition-smooth);
+}
+
+.badge i {
+    font-size: 1.1rem; /* Tamanho do ícone */
+}
+
+.badge:hover {
+    background: var(--primary-purple);
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+.stat-card, .video-card, .content-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.stats-subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-top: -30px; /* Aproxima do título H2 */
+    margin-bottom: 50px;
+}
+
+.stats-subtitle span {
+    position: relative;
+    padding-bottom: 4px; /* Espaço entre o texto e a linha */
+}
+
+.stats-subtitle span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px; /* Linha fina e elegante */
+    background: var(--primary-purple); /* Cor roxa do seu tema */
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.4); /* Leve brilho para harmonia visual */
+}
+
+.stat-card:hover, .video-card:hover, .content-card:hover {
+    border-color: var(--primary-purple);
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 7. ELEMENTOS INTERNOS DOS CARDS */
+.stat-icon { 
+    width: 45px; height: 45px; 
+    background: rgba(139, 92, 246, 0.1); 
+    border-radius: 12px; 
+    display: flex; justify-content: center; align-items: center; 
+    color: var(--primary-purple); 
+    flex-shrink: 0; 
+}
+.stat-icon svg, .stat-icon i { width: 22px; height: 22px; font-size: 22px; }
+
+.stat-content { display: flex; flex-direction: column; }
+.stat-value { display: block; font-size: 1.2rem; font-weight: 900; line-height: 1.2; }
+.stat-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 600; margin-top: 4px; }
+
+/* 8. VITRINE DE VÍDEOS */
+.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+.video-card { flex-direction: column; align-items: flex-start; padding: 0; border-radius: 20px; overflow: hidden; }
+.video-thumb { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.play-overlay { 
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    background: var(--primary-purple); color: #fff; width: 50px; height: 50px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;
+}
+.video-card:hover .play-overlay { opacity: 1; }
+.video-info { padding: 20px; }
+
+/* 9. VÍDEO HERO */
+.video-frame { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 32px; overflow: hidden; background: #000; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); }
+.video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+.play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85px; height: 85px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 50px rgba(139,92,246,0.3); }
+.play-button svg { color: var(--primary-purple); }
+
+
+.featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px; /* Centraliza limitando a largura */
+    margin: 0 auto;
+}
+
+.video-rect {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.video-rect:hover {
+    transform: translateX(10px); /* Efeito lateral em vez de subir */
+    border-color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.05);
+}
+
+.rect-thumb {
+    position: relative;
+    width: 200px; /* Tamanho fixo para a miniatura no retângulo */
+    aspect-ratio: 16/9;
+    flex-shrink: 0;
+}
+
+.rect-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rect-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(139, 92, 246, 0.4);
+    opacity: 0;
+    transition: 0.3s;
+    color: #fff;
+}
+
+.video-rect:hover .rect-play {
+    opacity: 1;
+}
+
+.rect-info {
+    padding: 0 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rect-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.rect-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--primary-purple);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+
+/* Centralização da Grid de Redes Sociais */
+.social-grid-center {
+    display: flex !important; /* Sobrescreve o display grid para permitir centralização flexível */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Garante que os cards mantenham um tamanho consistente no modo flex */
+.social-grid-center .stat-card {
+    min-width: 250px;
+    flex: 0 1 auto;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 600px) {
+    .social-grid-center .stat-card {
+        width: 100%;
+    }
+}
+
+
+
+/* Ajuste Responsivo */
+@media (max-width: 600px) {
+    .video-rect {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .rect-thumb {
+        width: 100%;
+    }
+    .rect-info {
+        padding: 15px;
+    }
+}
+
+
+
+/* 10. MODAL */
+.video-modal { position: fixed; inset: 0; z-index: 2000; display: none; justify-content: center; align-items: center; }
+.video-modal.open { display: flex; }
+.modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); }
+.modal-content { position: relative; width: 90%; max-width: 1000px; z-index: 2; }
+.modal-video-container { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 20px; overflow: hidden; }
+.modal-video-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.modal-close { position: absolute; top: -50px; right: 0; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; }
+
+/* 11. FORMULÁRIO */
+#contact-form { display: flex; flex-direction: column; gap: 20px; }
+.input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 16px; width: 100%; outline: none; transition: 0.3s; }
+input:focus, textarea:focus { border-color: var(--primary-purple); }
+button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+
+/* Estilo da Popup de Sucesso (Toast) */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(17, 17, 17, 0.95);
+    border: 1px solid var(--primary-purple);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(150%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9999;
+}
+
+.toast.show {
+    transform: translateY(0);
+}
+
+.toast-content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center;
+}
+
+.toast-content svg {
+    color: var(--primary-purple);
+}
+
+/* Container do fundo escurecido */
+/* Fundo escurecido total */
+.toast-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+}
+
+/* Card Retangular Largo */
+.toast-central {
+    background: #111;
+    border: 1px solid var(--primary-purple);
+    padding: 60px 40px;
+    border-radius: 24px;
+    max-width: 650px; /* Largura maior como solicitado */
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+}
+
+.toast-overlay.show { opacity: 1; visibility: visible; }
+.toast-overlay.show .toast-central { transform: scale(1); }
+
+/* Ícone de Sucesso */
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    color: var(--primary-purple);
+}
+
+.success-icon svg {
+    flex-shrink: 0; /* Impede o ícone de ser espremido */
+}
+
+/* Textos da Popup */
+.toast-content h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.toast-content p {
+    font-size: 18px;
+    color: var(--text-dim);
+    margin-bottom: 40px; /* Espaço maior antes do botão */
+    max-width: 80%; /* Evita que o texto encoste nas bordas */
+}
+
+/* Botão Entendido */
+.toast-close-btn {
+    background: var(--gradient-brand);
+    color: white;
+    border: none;
+    padding: 16px 50px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: block; /* Garante que ele se comporte como bloco */
+}
+
+.toast-close-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* 12. FOOTER */
+footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-dim); }
+
+/* 13. RESPONSIVO */
+@media (max-width: 850px) {
+    .input-group { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* 14. SCROLL REVEAL */
+@keyframes reveal-up {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.stat-card, .video-card, .content-card, #contact-form {
+    view-timeline-name: --revealing;
+    view-timeline-axis: block;
+    animation: reveal-up linear both;
+    animation-timeline: --revealing;
+    animation-range: entry 10% cover 30%;
+}
+
+/* --- ADIÇÕES DE ESTATÍSTICAS E GRÁFICOS --- */
+
+/* 1. Gráficos de Barra nos Cards Principais */
+.graph-card { position: relative; padding-bottom: 30px; }
+.card-bar-graph { 
+    position: absolute; bottom: 10px; left: 15px; right: 15px; 
+    height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; 
+}
+.card-bar-graph .bar-fill { 
+    height: 100%; background: var(--gradient-brand); 
+    border-radius: 10px; transition: 1s ease-out; width: 0; /* Inicia em 0 para animação */
+}
+
+/* 2. Wrappers Demográficos */
+.demographics-wrapper, .geography-wrapper { 
+    display: grid; gap: 30px; margin-top: 50px; 
+}
+.demographics-wrapper { grid-template-columns: 1fr 2fr; }
+
+.demo-box { 
+    background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 20px; padding: 30px; 
+}
+.demo-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: var(--text-dim); }
+
+/* 3. Barras Demográficas (Gênero/Idade) */
+.demo-bar-group { display: flex; flex-direction: column; gap: 15px; }
+.demo-bar-item { display: grid; grid-template-columns: 100px 1fr 60px; align-items: center; gap: 15px; }
+.bar-label { font-size: 0.9rem; color: var(--text-dim); }
+.bar-percent { font-size: 1rem; font-weight: 700; text-align: right; }
+.demo-bar-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; }
+.demo-bar-fill { height: 100%; background: #555; border-radius: 10px; width: 0; transition: 1s ease-out; }
+
+/* Cores específicas das barras */
+.demo-bar-fill.purple { background: var(--primary-purple); }
+.demo-bar-fill.blue { background: var(--primary-blue); }
+
+/* 4. Geografia com Gráfico Circular */
+.geo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+.geo-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.geo-list li { font-size: 1rem; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+.geo-list strong { color: #fff; font-weight: 700; }
+.dot-label { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot-label.purple { background: var(--primary-purple); }
+.dot-label.blue { background: var(--primary-blue); }
+.dot-label.green { background: #2ecc71; }
+.dot-label.white { background: #fff; }
+.dot-label.dim { background: rgba(255,255,255,0.2); }
+
+/* O Gráfico Circular em CSS (Simulação) */
+.geo-chart-container { position: relative; width: 180px; height: 180px; justify-self: center; display: flex; justify-content: center; align-items: center; }
+.circular-chart-geo { 
+    position: relative; width: 100%; height: 100%; 
+    border-radius: 50%; 
+    background: var(--primary-purple); /* Brasil (Base) */
+    overflow: hidden; 
+}
+.chart-center-hole { 
+    position: absolute; inset: 25px; 
+    background: var(--card-bg); border-radius: 50%; z-index: 5; 
+}
+.chart-main-label { position: absolute; font-size: 1rem; font-weight: 700; color: #fff; z-index: 10; text-align: center; max-width: 100px; }
+
+/* Fatias do gráfico (Cálculo simplificado) */
+.chart-slice { position: absolute; inset: 0; transform-origin: center; z-index: 1; }
+
+.slice-portugal { 
+    background: var(--primary-blue); 
+    clip-path: polygon(50% 50%, 50% 0%, 54% 0%, 50% 50%); /* ~3.3% */
+    transform: rotate(0deg); 
+}
+.slice-angola { 
+    background: #2ecc71; 
+    clip-path: polygon(50% 50%, 54% 0%, 55% 0%, 50% 50%); /* ~1% */
+    transform: rotate(12deg); /* Segue após Portugal */
+}
+.slice-outros { 
+    background: rgba(255,255,255,0.2); 
+    clip-path: polygon(50% 50%, 55% 0%, 65% 0%, 50% 50%); /* ~9.7% */
+    transform: rotate(16deg); /* Segue após Angola */
+}
+
+
+/* --- RESPONSIVO PARA DEMOGRAFIA --- */
+@media (max-width: 850px) {
+    .demographics-wrapper { grid-template-columns: 1fr; }
+    .geo-content { grid-template-columns: 1fr; }
+}
+
+/* --- SCROLL REVEAL ADICIONAL --- */
+.demo-box {
+    view-timeline-name: --revealing-demo;
+    view-timeline-axis: block;
+    animation: reveal-up linear both;
+    animation-timeline: --revealing-demo;
+    animation-range: entry 10% cover 30%;
+}
+
+
+/* Centralização Flexível para Redes Sociais */
+.social-grid-center {
+    display: flex !important; 
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Mantém a largura consistente dos cards no layout flex */
+.social-grid-center .stat-card {
+    min-width: 260px;
+    flex: 0 1 auto;
+}
+
+/* Garante que ocupem a largura total em telas pequenas */
+@media (max-width: 600px) {
+    .social-grid-center .stat-card {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* Centralização e Layout Flex */
+.social-grid-center {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.social-grid-center .stat-card {
+    min-width: 260px;
+    flex: 0 1 auto;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Cores e Glow Individualizados */
+.youtube .stat-icon { color: #FF0000; }
+.youtube:hover { box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); border-color: #FF0000; }
+
+.instagram .stat-icon { color: #E1306C; }
+.instagram:hover { box-shadow: 0 0 20px rgba(225, 48, 108, 0.2); border-color: #E1306C; }
+
+.tiktok .stat-icon { color: #00f2ea; }
+.tiktok:hover { box-shadow: 0 0 20px rgba(0, 242, 234, 0.2); border-color: #00f2ea; }
+
+.twitch .stat-icon { color: #9146FF; }
+.twitch:hover { box-shadow: 0 0 20px rgba(145, 70, 255, 0.2); border-color: #9146FF; }
+
+.discord .stat-icon { color: #5865F2; }
+.discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.2); border-color: #5865F2; }
+
+.x-twitter .stat-icon { color: #ffffff; }
+.x-twitter:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); border-color: #ffffff; }
+
+.telegram .stat-icon { color: #0088cc; }
+.telegram:hover { box-shadow: 0 0 20px rgba(0, 136, 204, 0.2); border-color: #0088cc; }
+
+/* Ajuste Mobile */
+@media (max-width: 600px) {
+    .social-grid-center .stat-card {
+        width: 100%;
+    }
+}
+
+
+
+#featured-videos {
+    padding: 80px 0;
+}
+
+/* Estilização da Grade de Vídeos */
+.video-grid {
+    display: grid;
+    /* Ajusta automaticamente a quantidade de colunas baseada no espaço disponível */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.video-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-purple);
+}
+
+.video-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Mantém a proporção de vídeo */
+    object-fit: cover;
+    display: block;
+}
+
+.video-card h3 {
+    padding: 12px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.4;
+    /* Limita o título a 2 linhas para manter o padrão visual */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+    }
+}

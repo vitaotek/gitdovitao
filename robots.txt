@@ -1,0 +1,19 @@
+# Robots.txt para Victor Lopes | VitãoTub
+# https://vitaotek.github.io/gitdovitao/
+
+# Bloqueia pastas de sistema ou temporárias (boa prática)
+Disallow: /node_modules/
+Disallow: /dist/
+
+# Instruções para robôs de Redes Sociais
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Indica aos motores de busca onde encontrar o mapa do site
+Sitemap: https://vitaotek.github.io/gitdovitao/sitemap.xml
+
+# Identificação do canal para robôs de busca de redes sociais
+# Crawlers: Googlebot, Bingbot, Slurp, DuckDuckBot, Baiduspider, YandexBot
