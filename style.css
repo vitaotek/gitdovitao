@@ -874,3 +874,32 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
         gap: 15px;
     }
 }
+
+/* Centralização específica para a seção de estatísticas */
+#stats .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#stats .stat-card {
+    justify-content: center; /* Centraliza ícone + texto horizontalmente dentro do card */
+    min-width: 240px;        /* Mantém a largura padrão para não quebrar o layout */
+    flex: 0 1 auto;
+}
+
+/* Centralização específica para a seção de Redes Sociais */
+#social-media .social-grid-center {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#social-media .stat-card {
+    justify-content: center; /* Centraliza o ícone e o texto dentro do card */
+    min-width: 240px;
+    flex: 0 1 auto;
+    text-align: left; /* Mantém o texto alinhado à esquerda em relação ao ícone */
+}
