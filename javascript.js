@@ -52,55 +52,48 @@ function closeVideo() {
     }
 }
 
-// 4. PROCESSAMENTO DO FORMULÁRIO
+// 4. PROCESSAMENTO DO FORMULÁRIO (Versão Mailto - Sem Google Script)
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
+        // Impedimos o envio padrão do formulário para tratar os dados
         e.preventDefault();
         
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
         const humanCheck = document.getElementById('human-check');
 
+        // Verificação do Bot (Opcional, mas bom manter)
         if (!humanCheck || !humanCheck.checked) {
             alert("Por favor, marque a caixa 'Eu não sou um robô'.");
             return;
         }
 
+        // Coleta dos dados digitados
         const nome = contactForm.querySelector('input[name="nome"]').value;
         const email = contactForm.querySelector('input[name="email"]').value;
         const mensagem = contactForm.querySelector('textarea[name="mensagem"]').value;
 
-        submitBtn.innerText = "Enviando...";
-        submitBtn.disabled = true;
+        // Formatação do link Mailto
+        // O encodeURIComponent garante que espaços e acentos não quebrem o link
+        const assunto = encodeURIComponent(`Contato via Site - ${nome}`);
+        const corpo = encodeURIComponent(`Nome: ${nome}\nE-mail: ${email}\n\nMensagem:\n${mensagem}`);
+        
+        // Monta o link final
+        const mailtoLink = `mailto:vitaotub@gmail.com?subject=${assunto}&body=${corpo}`;
 
-        // Formatação para HTTPS / Google Apps Script
-        const params = new URLSearchParams();
-        params.append('nome', nome);
-        params.append('email', email);
-        params.append('mensagem', mensagem);
+        // DISPARO: Abre o cliente de e-mail do visitante
+        window.location.href = mailtoLink;
 
-        // Dispara o envio em segundo plano
-        fetch(CONFIG.scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: params
-        });
+        // EXIBIÇÃO DA POPUP DE SUCESSO
+        // Como o mailto abre uma janela externa, podemos mostrar o Toast imediatamente
+        const toast = document.getElementById(CONFIG.toastContainerId);
+        if (toast) {
+            toast.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
 
-        // AGUARDA 3 SEGUNDOS PARA MOSTRAR A POPUP
-        setTimeout(() => {
-            const toast = document.getElementById(CONFIG.toastContainerId);
-            if (toast) {
-                toast.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-
-            // Restaura o botão e limpa o formulário
-            contactForm.reset();
-            submitBtn.innerText = "Enviar Mensagem";
-            submitBtn.disabled = false;
-        }, 3000); // 3000 milissegundos = 3 segundos
+        // Reseta o formulário para ficar limpo
+        contactForm.reset();
     });
 }
 
@@ -125,5 +118,24 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('toast-close-btn')) {
         closeToast();
+    }
+});
+
+
+// 6. FUNCIONALIDADE VOLTAR AO TOPO (ROLA SUAveMENTE)
+document.addEventListener('DOMContentLoaded', () => {
+    const backToTopButton = document.getElementById('back-to-top');
+
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', function(e) {
+            // Previne o comportamento padrão do link de "pular" para a âncora
+            e.preventDefault();
+            
+            // Rola suavemente até o elemento com ID "home"
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     }
 });

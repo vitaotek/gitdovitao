@@ -63,7 +63,7 @@
 <section id="hero-video" class="first-section">
     <div class="container hero-content-center">
         <div class="hero-text">
-            <h1>Seja Bem-Vindo</span></h1>
+            <h1>Seja Bem-Vindo</h1>
         </div>
         <div class="video-wrapper main-hero-video">
             <div class="video-frame" onclick="openVideo('BbQccfi-1D8')">
@@ -325,7 +325,7 @@
 <section id="contact">
     <div class="container">
         <h2 class="section-title">Vamos Conversar?</h2>
-        <form id="contact-form">
+        <form id="contact-form" action="mailto:vitaotub@gmail.com" method="GET" enctype="text/plain">
             <div class="form-group">
                 <input type="text" name="nome" placeholder="Seu Nome" required>
             </div>
@@ -361,22 +361,45 @@
         <div class="container"><p>&copy; 2026 Victor Lopes | VitãoTub</p></div>
     </footer>
 
-    <script src="javascript.js"></script>
 
 <div id="toast-container" class="toast-overlay">
     <div id="toast-notification" class="toast-central">
         <div class="toast-content">
             <div class="success-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="30" height="30">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </div>
-            <h3>Obrigado pelo contato.</h3>
-            <p>Em breve responderei ao seu e-mail.</p>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="30" height="30" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+</div>
+            <h3>Quase lá 🚀</h3>
+            <p>Abrimos o seu e-mail com todos os detalhes preenchidos. Verifique a janela do seu aplicativo de e-mail e finalize o envio por lá. Te respondo em breve!</p>
             <button type="button" class="toast-close-btn" onclick="closeToast()">Entendido</button>
         </div>
     </div>
 </div>
+
+<a href="#home" id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+<div id="google_translate_element"></div>
+
+    <script src="javascript.js"></script>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'pt', 
+        includedLanguages: 'en,es,pt', 
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: true
+      }, 'google_translate_element');
+    }
+    </script>
+
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>

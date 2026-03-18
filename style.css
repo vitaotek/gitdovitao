@@ -58,6 +58,27 @@ nav a:hover::after { transform: translateX(-50%) scaleX(1); }
 
 
 
+/* Esconde a barra superior do Google Translate */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0px !important;
+    position: static !important;
+}
+
+/* Esconde o ícone do Google que aparece ao passar o mouse nos textos */
+.goog-te-balloon-frame {
+    display: none !important;
+}
+
+/* Esconde o widget flutuante se ele aparecer */
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+
 /* 5. ESTRUTURA DE SEÇÕES */
 .container { max-width: var(--container-max); margin: 0 auto; padding: 0 20px; width: 100%; }
 section { padding: 90px 0; }
@@ -902,4 +923,50 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
     min-width: 240px;
     flex: 0 1 auto;
     text-align: left; /* Mantém o texto alinhado à esquerda em relação ao ícone */
+}
+
+
+/* --- Botão Voltar ao Topo --- */
+.back-to-top {
+    position: fixed; /* Fixa o elemento na tela */
+    bottom: 20px;    /* Distância do fundo */
+    right: 20px;     /* Distância da direita */
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary-purple); /* Cor de fundo roxa */
+    color: var(--white);                  /* Cor do ícone branca */
+    border-radius: 50%;                     /* Formato circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para dar destaque */
+    z-index: 1000;                          /* Garante que fique acima de tudo */
+    cursor: pointer;
+    transition: all 0.3s ease;              /* Animação suave no hover */
+    text-decoration: none;                  /* Remove sublinhado */
+}
+
+.back-to-top svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Efeito ao passar o mouse */
+.back-to-top:hover {
+    background-color: var(--primary-blue); /* Muda para azul no hover */
+    transform: translateY(-5px);         /* Levanta ligeiramente */
+}
+
+/* Responsividade: Diminuir um pouco em telas menores */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+    }
+    .back-to-top svg {
+        width: 20px;
+        height: 20px;
+    }
 }
