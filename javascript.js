@@ -170,6 +170,7 @@ function initCookieBanner() {
 
     if (!banner || !btnAccept) return;
 
+    // Se não houver a marcação no navegador, mostra o banner
     if (!localStorage.getItem("vitaotub_cookies_accepted")) {
         setTimeout(() => {
             banner.classList.add("show");
@@ -179,13 +180,11 @@ function initCookieBanner() {
     btnAccept.addEventListener("click", function() {
         localStorage.setItem("vitaotub_cookies_accepted", "true");
         banner.classList.remove("show");
-        setTimeout(() => {
-            banner.style.display = "none";
-        }, 600);
     });
 }
 
-// INICIALIZAÇÃO
+// Inicializa as funções após o carregamento do DOM
 document.addEventListener("DOMContentLoaded", () => {
     initCookieBanner();
+    // Se tiver outras funções de inicialização no futuro, coloque-as aqui
 });
