@@ -23,6 +23,9 @@ body {
     font-family: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    /* Correção Translate */
+    top: 0 !important;
+    position: static !important;
 }
 h1, h2, h3, nav a, button { font-family: 'Satoshi', sans-serif; }
 
@@ -108,8 +111,9 @@ h2::after {
 
 /* 6. GRID E CARDS BASE */
 .stats-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    display: flex; /* Mudado de grid para flex para facilitar a centralização */
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px; 
 }
 
@@ -658,18 +662,48 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
     .stats-grid { grid-template-columns: 1fr; }
 }
 
-/* 14. SCROLL REVEAL */
+/* 14. SCROLL REVEAL (VERSÃO CORRIGIDA) */
+
 @keyframes reveal-up {
-    from { opacity: 0; transform: translateY(50px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.98); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
 }
 
-.stat-card, .video-card, .content-card, #contact-form {
+.stat-card, 
+.video-card, 
+.content-card, 
+.demo-box,
+#contact-form {
+    /* Suporte Moderno */
     view-timeline-name: --revealing;
     view-timeline-axis: block;
     animation: reveal-up linear both;
     animation-timeline: --revealing;
-    animation-range: entry 10% cover 30%;
+    animation-range: entry 5% cover 25%;
+}
+
+/* Fallback para Safari e Firefox (Garante que o conteúdo não suma) */
+@supports not (animation-timeline: --revealing) {
+    .stat-card, .video-card, .content-card, .demo-box, #contact-form {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .stat-card, .video-card, .content-card, .demo-box, #contact-form {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
 
 /* --- ADIÇÕES DE ESTATÍSTICAS E GRÁFICOS --- */
@@ -760,16 +794,6 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
     .demographics-wrapper { grid-template-columns: 1fr; }
     .geo-content { grid-template-columns: 1fr; }
 }
-
-/* --- SCROLL REVEAL ADICIONAL --- */
-.demo-box {
-    view-timeline-name: --revealing-demo;
-    view-timeline-axis: block;
-    animation: reveal-up linear both;
-    animation-timeline: --revealing-demo;
-    animation-range: entry 10% cover 30%;
-}
-
 
 /* Centralização Flexível para Redes Sociais */
 .social-grid-center {
@@ -926,8 +950,284 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
 }
 
 
+/* --- ESTILO BANNER LGPD FLUTUANTE --- */
+.lgpd-overlay {
+    position: fixed;
+    bottom: 30px; /* Distância do fundo para parecer flutuante */
+    left: 50%;
+    transform: translateX(-50%) translateY(150%); /* Centralizado e escondido abaixo */
+    width: 90%; /* Margem de segurança para telas pequenas */
+    max-width: 1200px; /* MESMA LARGURA DOS DEMAIS ELEMENTOS DO SITE */
+    background: rgba(15, 15, 15, 0.98); 
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(155, 89, 182, 0.6); /* Borda roxa em toda a volta */
+    border-radius: 20px; /* Bordas arredondadas para o visual flutuante */
+    z-index: 10001;
+    padding: 25px 40px;
+    display: flex;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+}
+
+/* Quando o JS ativa a exibição */
+.lgpd-overlay.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.lgpd-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.lgpd-content p {
+    margin: 0;
+    font-size: 1.15rem; /* Fonte grande e legível */
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.lgpd-content strong {
+    color: #9b59b6;
+}
+
+.lgpd-content a {
+    color: #9b59b6;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.lgpd-btn-main {
+    background-color: #9b59b6;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.lgpd-btn-main:hover {
+    background-color: #8e44ad;
+    transform: translateY(-3px);
+}
+
+/* Botão de Recusar / Opções (Estilo Secundário) */
+.lgpd-btn-secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.lgpd-btn-secondary:hover {
+    color: var(--text-main);
+    border-color: var(--primary-purple);
+    background: rgba(139, 92, 246, 0.05);
+}
+
+/* Ajuste no container para alinhar os dois botões lado a lado */
+.lgpd-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Ajuste para telas menores (Tablets e Celulares) */
+@media (max-width: 992px) {
+    .lgpd-overlay {
+        padding: 20px;
+        bottom: 20px;
+    }
+    .lgpd-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .lgpd-content p {
+        font-size: 1rem;
+    }
+    .lgpd-btn-main {
+        width: 100%;
+    }
+}
+
+
+/* --- MODAL POLÍTICA DE PRIVACIDADE --- */
+
+/* Container que escurece o fundo */
+.privacy-modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    inset: 0;
+    z-index: 11000; /* Acima de tudo */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Quando o modal estiver ativo */
+.privacy-modal.active {
+    display: flex !important;
+}
+
+/* Card central com scroll interno */
+.privacy-modal-content {
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    position: relative;
+}
+
+.privacy-modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+.privacy-modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-purple);
+    border-radius: 10px;
+}
+
+/* Cabeçalho do Modal */
+.privacy-modal-header {
+    padding: 30px 40px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.privacy-modal-header h2 {
+    margin-bottom: 0;
+    font-size: 1.8rem;
+    text-align: left;
+    padding-bottom: 0;
+}
+
+.privacy-modal-header h2::after {
+    display: none; /* Remove a linha decorativa do H2 padrão aqui */
+}
+
+/* Área de texto com scroll */
+.privacy-modal-body {
+    padding: 20px 40px 40px;
+    overflow-y: auto; /* Habilita o scroll apenas aqui dentro */
+    color: var(--text-dim);
+    line-height: 1.8;
+}
+
+/* Estilização básica do texto interno */
+.privacy-modal-body h3 {
+    color: #fff;
+    margin: 25px 0 10px;
+    font-size: 1.2rem;
+}
+
+.privacy-modal-body p, .privacy-modal-body li {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Botão de fechar (X) */
+.privacy-close-x {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.privacy-close-x:hover {
+    color: var(--primary-purple);
+    transform: scale(1.1);
+}
+
+/* Customização da barra de scroll interna */
+.privacy-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.privacy-modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+.privacy-modal-body::-webkit-scrollbar-thumb {
+    background: var(--primary-purple);
+    border-radius: 10px;
+}
+
+
+/* Estilização da Modal de Privacidade */
+#privacy-modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 10005; /* Deve ser maior que o da LGPD (10001) */
+    justify-content: center;
+    align-items: center;
+}
+
+#privacy-modal.active, 
+#privacy-modal.show {
+    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+}
+
+#privacy-modal .modal-content {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    padding: 40px;
+    overflow-y: auto; /* Permite scroll apenas dentro do texto da política */
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* Scrollbar personalizada para a modal */
+#privacy-modal .modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+#privacy-modal .modal-content::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+#privacy-modal .modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-purple, #9b59b6);
+    border-radius: 10px;
+}
+
+/* Estilos de texto dentro da modal */
+#privacy-content-target h2 { color: #9b59b6; margin: 25px 0 15px; }
+#privacy-content-target p { color: #ccc; margin-bottom: 15px; line-height: 1.6; }
+#privacy-content-target ul { color: #ccc; margin-bottom: 15px; padding-left: 20px; }
+#privacy-content-target li { margin-bottom: 8px; }
+
+
 /* --- Botão Voltar ao Topo --- */
 .back-to-top {
+    --white: #ffffff;
     position: fixed; /* Fixa o elemento na tela */
     bottom: 20px;    /* Distância do fundo */
     right: 20px;     /* Distância da direita */

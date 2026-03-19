@@ -1,103 +1,121 @@
 /**
- * Portfólio Victor Lopes - v3.6
- * Ajuste: Envio imediato e exibição da Popup após 3 segundos
+ * Portfólio Victor Lopes - v1.5.1
+ * Atualizado: Correção definitiva do Modal de Privacidade
  */
 
 // 1. CONFIGURAÇÕES
 const CONFIG = {
     modalId: 'video-modal',
     iframeTargetId: 'modal-iframe-target',
-    toastContainerId: 'toast-container',
+    toastContainerId: 'toast-overlay',
+    privacyModalId: 'privacy-modal',
+    privacyTargetId: 'privacy-content-target', // ID do container de texto
     scriptURL: 'https://script.google.com/macros/s/AKfycbwOnJ8aLNMfbOss06eRh_glZRNULpJ3j9HqeL7PCGPDfr80_vcCB5-hLEHkDddO-LFrqA/exec'
-};
-
-const state = {
-    isOpen: false
 };
 
 // 2. ANIMAÇÃO DE ESTATÍSTICAS
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const fill = entry.target.querySelector('.bar-fill, .demo-bar-fill');
-            if (fill) {
-                fill.style.width = fill.parentElement.dataset.width || fill.style.width;
-            }
+            const fills = entry.target.querySelectorAll('.bar-fill, .demo-bar-fill');
+            fills.forEach(fill => {
+                const targetWidth = fill.parentElement.getAttribute('data-width') || "100%";
+                fill.style.width = targetWidth;
+            });
         }
     });
-}, { threshold: 0.5 });
+}, { threshold: 0.2 });
 
-document.querySelectorAll('.stat-card, .demo-bar-item').forEach(card => observer.observe(card));
+document.querySelectorAll('.stat-card, .demo-box, .demo-bar-item').forEach(el => observer.observe(el));
 
 // 3. SISTEMA DE MODAL DE VÍDEO
 function openVideo(videoId) {
     const modal = document.getElementById(CONFIG.modalId);
     const target = document.getElementById(CONFIG.iframeTargetId);
     if (modal && target) {
-        target.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
+        target.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        state.isOpen = true;
     }
 }
 
 function closeVideo() {
     const modal = document.getElementById(CONFIG.modalId);
     const target = document.getElementById(CONFIG.iframeTargetId);
-    if (modal && target) {
-        target.innerHTML = '';
+    if (modal) {
+        if (target) target.innerHTML = '';
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        state.isOpen = false;
     }
 }
 
-// 4. PROCESSAMENTO DO FORMULÁRIO (Versão Mailto - Sem Google Script)
-const contactForm = document.getElementById('contact-form');
+// 4. MODAL DE PRIVACIDADE (CARREGAMENTO DINÂMICO)
+async function openPrivacyModal() {
+    const modal = document.getElementById(CONFIG.privacyModalId);
+    const target = document.getElementById(CONFIG.privacyTargetId);
+    
+    if (modal && target) {
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
+        try {
+            // O './' garante que a busca seja na raiz do site
+            const response = await fetch('./politica-de-privacidade.html');
+            if (!response.ok) throw new Error('Arquivo não encontrado');
+            
+            const htmlContent = await response.text();
+            target.innerHTML = htmlContent; // Substitui o "Carregando..." pelo texto real
+        } catch (error) {
+            console.error("Erro ao carregar política:", error);
+            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar a política completa. <a href="politica-de-privacidade.html" target="_blank" style="color: var(--purple);">Clique aqui para abrir em uma nova aba.</a></p>`;
+        }
+    }
+}
+
+// FUNÇÃO DE FECHAMENTO DA PRIVACIDADE (Adicionada)
+function closePrivacyModal() {
+    const modal = document.getElementById(CONFIG.privacyModalId);
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 5. PROCESSAMENTO DO FORMULÁRIO
+const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
-        // Impedimos o envio padrão do formulário para tratar os dados
         e.preventDefault();
         
         const humanCheck = document.getElementById('human-check');
-
-        // Verificação do Bot (Opcional, mas bom manter)
         if (!humanCheck || !humanCheck.checked) {
-            alert("Por favor, marque a caixa 'Eu não sou um robô'.");
+            alert("Por favor, confirme que você não é um robô.");
             return;
         }
 
-        // Coleta dos dados digitados
         const nome = contactForm.querySelector('input[name="nome"]').value;
         const email = contactForm.querySelector('input[name="email"]').value;
         const mensagem = contactForm.querySelector('textarea[name="mensagem"]').value;
 
-        // Formatação do link Mailto
-        // O encodeURIComponent garante que espaços e acentos não quebrem o link
         const assunto = encodeURIComponent(`Contato via Site - ${nome}`);
         const corpo = encodeURIComponent(`Nome: ${nome}\nE-mail: ${email}\n\nMensagem:\n${mensagem}`);
-        
-        // Monta o link final
         const mailtoLink = `mailto:vitaotub@gmail.com?subject=${assunto}&body=${corpo}`;
 
-        // DISPARO: Abre o cliente de e-mail do visitante
         window.location.href = mailtoLink;
 
-        // EXIBIÇÃO DA POPUP DE SUCESSO
-        // Como o mailto abre uma janela externa, podemos mostrar o Toast imediatamente
         const toast = document.getElementById(CONFIG.toastContainerId);
         if (toast) {
             toast.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
-        // Reseta o formulário para ficar limpo
         contactForm.reset();
     });
 }
 
-// 5. FUNÇÕES DA POPUP
+// 6. FUNÇÕES DE FECHAMENTO (TOAST E GERAL)
 function closeToast() {
     const toast = document.getElementById(CONFIG.toastContainerId);
     if (toast) {
@@ -106,36 +124,68 @@ function closeToast() {
     }
 }
 
-// Fechar com teclado (Esc) ou cliques extras
+// Atalho Tecla ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeVideo();
         closeToast();
+        closePrivacyModal();
     }
 });
 
-// Listener específico para o botão de fechar da popup
+// Cliques no Fundo Escuro ou Botões de Fechar
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('toast-close-btn')) {
+    // Fecha Modal de Vídeo
+    if (e.target.id === CONFIG.modalId || e.target.classList.contains('modal-overlay')) {
+        closeVideo();
+    }
+    
+    // Fecha Toast/Sucesso
+    if (e.target.id === CONFIG.toastContainerId || e.target.classList.contains('toast-close-btn')) {
         closeToast();
     }
+    
+    // Fecha Modal de Privacidade
+    if (e.target.id === CONFIG.privacyModalId || 
+        e.target.classList.contains('modal-overlay') || 
+        e.target.classList.contains('modal-close') ||
+        e.target.innerText === '×') {
+        closePrivacyModal();
+    }
 });
 
+// 7. VOLTAR AO TOPO
+const backToTopButton = document.getElementById('back-to-top');
+if (backToTopButton) {
+    backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
-// 6. FUNCIONALIDADE VOLTAR AO TOPO (ROLA SUAveMENTE)
-document.addEventListener('DOMContentLoaded', () => {
-    const backToTopButton = document.getElementById('back-to-top');
+// 8. BANNER LGPD
+function initCookieBanner() {
+    const banner = document.getElementById("lgpd-banner");
+    const btnAccept = document.getElementById("lgpd-accept");
 
-    if (backToTopButton) {
-        backToTopButton.addEventListener('click', function(e) {
-            // Previne o comportamento padrão do link de "pular" para a âncora
-            e.preventDefault();
-            
-            // Rola suavemente até o elemento com ID "home"
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+    if (!banner || !btnAccept) return;
+
+    if (!localStorage.getItem("vitaotub_cookies_accepted")) {
+        setTimeout(() => {
+            banner.classList.add("show");
+        }, 1000);
     }
+
+    btnAccept.addEventListener("click", function() {
+        localStorage.setItem("vitaotub_cookies_accepted", "true");
+        banner.classList.remove("show");
+        setTimeout(() => {
+            banner.style.display = "none";
+        }, 600);
+    });
+}
+
+// INICIALIZAÇÃO
+document.addEventListener("DOMContentLoaded", () => {
+    initCookieBanner();
 });

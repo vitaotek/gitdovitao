@@ -320,12 +320,12 @@
                 </div>
                 <textarea name="mensagem" placeholder="Sua mensagem..." rows="5" required></textarea>
 
-                <div class="checkbox-group" style="margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;">
-                    <input type="checkbox" id="human-check" name="human-check" required style="width: 18px; height: 18px; cursor: pointer;">
-                    <label for="human-check" style="font-size: 0.9rem; color: var(--text-dim); cursor: pointer; user-select: none;">
-                        Eu não sou um robô e concordo em enviar estes dados.
-                    </label>
-                </div>
+                <div class="checkbox-group" style="margin: 20px 0; display: flex; align-items: flex-start; gap: 10px;">
+    <input type="checkbox" id="privacy-check" name="privacy-check" required style="width: 18px; height: 18px; cursor: pointer;">
+    <label for="privacy-check" style="font-size: 0.85rem; color: var(--text-dim); text-align: left;">
+        Li e concordo com a <a href="politica-de-privacidade.html" target="_blank" style="color: var(--purple); text-decoration: underline;">Política de Privacidade</a> e autorizo o processamento dos meus dados para fins de contato.
+    </label>
+</div>
                 <button type="submit">Enviar Mensagem</button>
             </form>
         </div>
@@ -341,7 +341,13 @@
 </div>
 
 <footer>
-    <div class="container"><p>&copy; 2026 Victor Lopes | VitãoTub</p></div>
+    <div class="container">
+        <p>&copy; 2026 Victor Lopes | VitãoTub</p>
+        <div class="footer-links" style="margin-top: 10px; font-size: 0.8rem;">
+            <a href="politica-de-privacidade.html" style="margin: 0 10px;">Política de Privacidade</a> | 
+            <a href="termos-de-uso.html" style="margin: 0 10px;">Termos de Uso</a>
+        </div>
+    </div>
 </footer>
 
 <a href="#home" id="back-to-top" class="back-to-top" aria-label="Voltar ao topo da página">
@@ -382,6 +388,28 @@ function googleTranslateElementInit() {
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div id="lgpd-banner" class="lgpd-overlay">
+    <div class="lgpd-container">
+        <div class="lgpd-content">
+            <p>Respeitamos sua privacidade. Utilizamos cookies para melhorar sua experiência técnica e analisar o tráfego. 
+            Consulte nossa <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color: var(--primary-purple); text-decoration: underline;">Política de Privacidade</a>.</p>
+        </div>
+        <div class="lgpd-actions">
+            <button id="lgpd-reject" class="lgpd-btn-secondary">Recusar</button>
+            <button id="lgpd-accept" class="lgpd-btn-main">Aceitar</button>
+        </div>
+    </div>
+</div>
+
+<div id="privacy-modal" class="video-modal"> <div class="modal-overlay" onclick="closePrivacyModal()"></div>
+    <div class="modal-content" style="max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 30px; background: #111; border: 1px solid #333; position: relative; z-index: 10002;">
+        <button class="modal-close" onclick="closePrivacyModal()" style="position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer;">&times;</button>
+        <div id="privacy-content-target">
+            <p>Carregando política completa...</p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
