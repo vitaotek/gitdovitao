@@ -655,6 +655,17 @@ input[type="checkbox"]:focus {
 /* 12. FOOTER */
 footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-dim); }
 
+.footer-links a {
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--primary-purple);
+}
+
+
 /* 13. RESPONSIVO */
 @media (max-width: 850px) {
     .input-group { grid-template-columns: 1fr; }

@@ -91,7 +91,7 @@ async function openTermsModal() {
             target.innerHTML = htmlContent;
         } catch (error) {
             console.error("Erro ao carregar termos:", error);
-            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar os termos. <a href="termos-de-uso.html" target="_blank">Clique aqui para abrir.</a></p>`;
+            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar os termos. <a href="termos-de-uso.html" target="_blank" style="color: var(--primary-purple);">Clique aqui para abrir em uma nova aba.</a></p>`;
         }
     }
 }
