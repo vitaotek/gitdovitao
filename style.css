@@ -1224,6 +1224,59 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
 #privacy-content-target ul { color: #ccc; margin-bottom: 15px; padding-left: 20px; }
 #privacy-content-target li { margin-bottom: 8px; }
 
+/* --- Estilos do Modal de Privacidade --- */
+.privacy-body {
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.privacy-title {
+    color: var(--primary-purple);
+    margin-bottom: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.8rem;
+}
+
+.privacy-update {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 25px;
+    display: block;
+}
+
+.privacy-body h3 {
+    color: #fff;
+    margin-top: 25px;
+    font-size: 1.2rem;
+    font-family: 'Satoshi', sans-serif;
+}
+
+.privacy-list {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.privacy-list li {
+    margin-bottom: 8px;
+}
+
+.privacy-email {
+    margin-top: 10px;
+    font-weight: 600;
+    color: var(--primary-purple);
+}
+
+.privacy-notice {
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(139, 92, 246, 0.1);
+    border-left: 4px solid var(--primary-purple);
+    font-size: 0.9rem;
+    border-radius: 0 4px 4px 0;
+}
+
 
 /* --- Botão Voltar ao Topo --- */
 .back-to-top {
