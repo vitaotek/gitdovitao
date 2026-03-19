@@ -60,15 +60,38 @@ async function openPrivacyModal() {
         document.body.style.overflow = 'hidden';
 
         try {
-            // O './' garante que a busca seja na raiz do site
+            // Busca o arquivo limpo (sem estilos inline)
             const response = await fetch('./politica-de-privacidade.html');
             if (!response.ok) throw new Error('Arquivo não encontrado');
             
             const htmlContent = await response.text();
-            target.innerHTML = htmlContent; // Substitui o "Carregando..." pelo texto real
+            target.innerHTML = htmlContent; 
         } catch (error) {
             console.error("Erro ao carregar política:", error);
-            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar a política completa. <a href="politica-de-privacidade.html" target="_blank" style="color: var(--purple);">Clique aqui para abrir em uma nova aba.</a></p>`;
+            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar o conteúdo. <a href="politica-de-privacidade.html" target="_blank">Clique aqui para abrir.</a></p>`;
+        }
+    }
+}
+
+// Função para abrir Termos de Uso
+async function openTermsModal() {
+    const modal = document.getElementById(CONFIG.privacyModalId);
+    const target = document.getElementById(CONFIG.privacyTargetId);
+    
+    if (modal && target) {
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        try {
+            const response = await fetch('./termos-de-uso.html');
+            if (!response.ok) throw new Error('Arquivo não encontrado');
+            
+            const htmlContent = await response.text();
+            target.innerHTML = htmlContent;
+        } catch (error) {
+            console.error("Erro ao carregar termos:", error);
+            target.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar os termos. <a href="termos-de-uso.html" target="_blank">Clique aqui para abrir.</a></p>`;
         }
     }
 }
