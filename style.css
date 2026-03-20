@@ -731,32 +731,133 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
 }
 
 /* 2. Wrappers Demográficos */
-.demographics-wrapper, .geography-wrapper { 
-    display: grid; gap: 30px; margin-top: 50px; 
+.demographics-wrapper { 
+    display: grid; 
+    gap: 30px; 
+    margin-top: 50px; 
+    grid-template-columns: 1fr 2fr; /* Mantém Gênero e Idade lado a lado */
 }
-.demographics-wrapper { grid-template-columns: 1fr 2fr; }
+
+/* Geografia ocupando a largura total */
+.geography-wrapper {
+    grid-column: 1 / -1; /* Mantém a ocupação de todas as colunas do grid pai */
+    width: 70%;          /* Define a largura desejada */
+    margin: 30px auto 0; /* O 'auto' nas laterais garante a centralização */
+}
+
+/* Ajuste para dispositivos móveis */
+@media (max-width: 1024px) {
+    .geography-wrapper {
+        width: 90%;      /* Aumenta a largura em tablets/celulares para melhor leitura */
+    }
+}
+
+/* Centralização dos elementos dentro do bloco de Geografia */
+.geography-wrapper .demo-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    text-align: center;
+    width: 100%;
+}
+
+.geography-wrapper .demo-bar-group {
+    width: 100%;
+    max-width: 800px; /* Limita a largura das barras para não ficarem gigantescas em telas ultra-wide */
+    margin: 0 auto;
+}
+
+.geography-wrapper .demo-bar-item {
+    /* Ajusta o grid interno para manter o alinhamento centralizado visualmente */
+    grid-template-columns: 120px 1fr 80px; 
+}
 
 .demo-box { 
-    background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); 
-    border-radius: 20px; padding: 30px; 
+    background: var(--card-bg); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 20px; 
+    padding: 30px; 
 }
-.demo-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: var(--text-dim); }
 
-/* 3. Barras Demográficas (Gênero/Idade) */
-.demo-bar-group { display: flex; flex-direction: column; gap: 15px; }
-.demo-bar-item { display: grid; grid-template-columns: 100px 1fr 60px; align-items: center; gap: 15px; }
-.bar-label { font-size: 0.9rem; color: var(--text-dim); }
-.bar-percent { font-size: 1rem; font-weight: 700; text-align: right; }
-.demo-bar-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; }
-.demo-bar-fill { height: 100%; background: #555; border-radius: 10px; width: 0; transition: 1s ease-out; }
+.demo-box h3 { 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    margin-bottom: 25px; 
+    color: var(--text-dim); 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-/* Cores específicas das barras */
+/* 3. Estrutura das Barras */
+.demo-bar-group { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 18px; 
+}
+
+.demo-bar-item { 
+    display: grid; 
+    grid-template-columns: 70px 1fr 55px; /* Rótulo | Barra | % */
+    align-items: center; 
+    gap: 15px; 
+}
+
+.bar-label { 
+    font-size: 0.85rem; 
+    color: var(--text-dim); 
+    font-weight: 500;
+}
+
+.bar-percent { 
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    text-align: right; 
+    color: var(--text-main);
+}
+
+/* Fundo Cinza das Barras (Unificado) */
+.demo-bar-bg, .demo-bar-stacked { 
+    height: 10px; 
+    background: rgba(255, 255, 255, 0.08); 
+    border-radius: 20px; 
+    display: flex; /* Importante para as barras duplas ficarem lado a lado */
+    overflow: hidden; /* Garante que a cor não saia do arredondamento */
+    width: 100%;
+}
+
+/* Preenchimento Colorido */
+.demo-bar-fill { 
+    height: 100%; 
+    width: 0; /* Importante: começa em 0 para a animação funcionar */
+    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1); 
+    border-radius: 20px;
+}
+.demo-bar-bg {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Cores das Barras */
 .demo-bar-fill.purple { background: var(--primary-purple); }
 .demo-bar-fill.blue { background: var(--primary-blue); }
 
 /* 4. Geografia com Gráfico Circular */
-.geo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
-.geo-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.geography-wrapper .geo-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Espaço entre o gráfico e a legenda */
+    flex-wrap: wrap; /* Garante que quebre linha no celular */
+    width: 100%;
+}
+.geography-wrapper .geo-list {
+    text-align: left; /* Mantém o texto da lista alinhado à esquerda para leitura, mas a lista em si centralizada */
+    list-style: none;
+    padding: 0;
+}
 .geo-list li { font-size: 1rem; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
 .geo-list strong { color: #fff; font-weight: 700; }
 .dot-label { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }

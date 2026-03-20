@@ -17,15 +17,22 @@ const CONFIG = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const fills = entry.target.querySelectorAll('.bar-fill, .demo-bar-fill');
+            // Procura todas as barras dentro do elemento que entrou na tela
+            const fills = entry.target.querySelectorAll('.demo-bar-fill, .bar-fill');
+            
             fills.forEach(fill => {
-                const targetWidth = fill.parentElement.getAttribute('data-width') || "100%";
+                // Lê o valor diretamente da barra ou do pai (como backup)
+                const targetWidth = fill.getAttribute('data-width') || 
+                                   fill.parentElement.getAttribute('data-width') || 
+                                   "100%";
+                
                 fill.style.width = targetWidth;
             });
         }
     });
-}, { threshold: 0.2 });
+}, { threshold: 0.1 });
 
+// Observa os containers principais
 document.querySelectorAll('.stat-card, .demo-box, .demo-bar-item').forEach(el => observer.observe(el));
 
 // 3. SISTEMA DE MODAL DE VÍDEO
