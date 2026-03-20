@@ -100,8 +100,13 @@ async function openTermsModal() {
 function closePrivacyModal() {
     const modal = document.getElementById(CONFIG.privacyModalId);
     if (modal) {
-        modal.style.display = 'none';
         modal.classList.remove('active');
+        // Usamos um timeout curto para esconder o display só após a transição do CSS
+        setTimeout(() => {
+            if (!modal.classList.contains('active')) {
+                modal.style.display = 'none';
+            }
+        }, 300); 
         document.body.style.overflow = '';
     }
 }
@@ -190,24 +195,35 @@ if (backToTopButton) {
 function initCookieBanner() {
     const banner = document.getElementById("lgpd-banner");
     const btnAccept = document.getElementById("lgpd-accept");
+    const btnReject = document.getElementById("lgpd-reject");
 
-    if (!banner || !btnAccept) return;
+    // Verifica se o banner existe na página atual
+    if (!banner) return;
 
-    // Se não houver a marcação no navegador, mostra o banner
+    // Se não houver a marcação no navegador, mostra o banner após 1 segundo
     if (!localStorage.getItem("vitaotub_cookies_accepted")) {
         setTimeout(() => {
             banner.classList.add("show");
         }, 1000);
     }
 
-    btnAccept.addEventListener("click", function() {
-        localStorage.setItem("vitaotub_cookies_accepted", "true");
-        banner.classList.remove("show");
-    });
+    // Ação de Aceitar (Salva a preferência e fecha)
+    if (btnAccept) {
+        btnAccept.onclick = function() {
+            localStorage.setItem("vitaotub_cookies_accepted", "true");
+            banner.classList.remove("show");
+        };
+    }
+
+    // Ação de Recusar (Apenas fecha o banner)
+    if (btnReject) {
+        btnReject.onclick = function() {
+            banner.classList.remove("show");
+        };
+    }
 }
 
-// Inicializa as funções após o carregamento do DOM
-document.addEventListener("DOMContentLoaded", () => {
-    initCookieBanner();
-    // Se tiver outras funções de inicialização no futuro, coloque-as aqui
-});
+// Inicializa quando o HTML terminar de carregar
+document.addEventListener("DOMContentLoaded", initCookieBanner);
+
+// Se tiver outras funções de inicialização no futuro, coloque-as aqui.

@@ -964,27 +964,31 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
 /* --- ESTILO BANNER LGPD FLUTUANTE --- */
 .lgpd-overlay {
     position: fixed;
-    bottom: 30px; /* Distância do fundo para parecer flutuante */
+    bottom: 30px;
     left: 50%;
-    transform: translateX(-50%) translateY(150%); /* Centralizado e escondido abaixo */
-    width: 90%; /* Margem de segurança para telas pequenas */
-    max-width: 1200px; /* MESMA LARGURA DOS DEMAIS ELEMENTOS DO SITE */
+    /* Garante que ele comece escondido abaixo da tela */
+    transform: translateX(-50%) translateY(150%); 
+    width: 90%;
+    max-width: 1200px;
     background: rgba(15, 15, 15, 0.98); 
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(155, 89, 182, 0.6); /* Borda roxa em toda a volta */
-    border-radius: 20px; /* Bordas arredondadas para o visual flutuante */
+    border: 2px solid rgba(155, 89, 182, 0.6);
+    border-radius: 20px;
     z-index: 10001;
     padding: 25px 40px;
     display: flex;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    /* Aumentei um pouco o tempo para ser mais suave ao sumir */
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     opacity: 0;
+    pointer-events: none; /* Evita que o banner invisível bloqueie cliques no rodapé */
 }
 
 /* Quando o JS ativa a exibição */
 .lgpd-overlay.show {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: all; /* Permite clicar nos botões */
 }
 
 .lgpd-container {
