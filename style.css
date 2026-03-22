@@ -476,29 +476,31 @@ h2::after {
 
 
 
-/* Container da lista */
-.blog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+/* =========================================
+   SEÇÃO DO BLOG (CARREGAMENTO DINÂMICO)
+   ========================================= */
+
+#lista-artigos {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
     margin-top: 40px;
 }
 
-/* Card do Artigo */
 .blog-card {
-    display: grid;
-    grid-template-columns: 350px 1fr; /* Imagem na esquerda (350px), texto no resto */
-    gap: 25px;
-    background: rgba(255, 255, 255, 0.05); /* Fundo escuro sutil */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    display: grid !important;
+    grid-template-columns: 350px 1fr; 
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
     overflow: hidden;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: var(--transition-smooth);
 }
 
 .blog-card:hover {
+    border-color: var(--primary-purple) !important;
     transform: translateY(-5px);
-    border-color: #a855f7; /* Cor roxa do VitãoTub */
+    background: rgba(255, 255, 255, 0.02) !important;
 }
 
 .blog-image {
@@ -509,92 +511,57 @@ h2::after {
 .blog-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+    object-fit: cover !important;
 }
 
-/* Container do texto do artigo */
 .blog-content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Texto no topo, botão no rodapé */
+    padding: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important; /* Empurra o botão para baixo */
 }
 
 .blog-text-wrapper h3 {
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 12px;
+    font-size: 1.5rem !important;
+    color: var(--text-main) !important;
+    margin-bottom: 12px !important;
 }
 
 .blog-text-wrapper p {
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    color: var(--text-dim) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
 }
 
-.blog-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.blog-content p {
-    color: var(--text-dim); /* Supondo que você tenha essa variável para cinza */
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-/* O botão com alinhamento à direita */
+/* Botão "Ler Mais" alinhado à direita */
 .btn-read-more {
-    align-self: flex-end; /* ALINHAMENTO À DIREITA */
-    padding: 12px 24px;
-    background-color: #a855f7;
-    color: #fff !important;
+    align-self: flex-end !important; 
+    background: var(--primary-purple) !important;
+    color: white !important;
+    padding: 12px 28px !important;
+    border-radius: 12px !important;
     text-decoration: none !important;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    text-align: center;
+    font-weight: 600 !important;
+    transition: var(--transition-smooth) !important;
 }
 
 .btn-read-more:hover {
-    background-color: #3b82f6; /* Azul no hover conforme solicitado */
+    background: var(--primary-blue) !important;
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3) !important;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
 }
 
-/* Ajuste para Celular (Responsivo) */
+/* Responsividade para Celular */
 @media (max-width: 768px) {
     .blog-card {
-        grid-template-columns: 1fr; /* Empilha imagem e texto */
+        grid-template-columns: 1fr !important;
     }
-    
     .blog-image {
-        height: 200px;
+        height: 220px !important;
     }
-    
     .btn-read-more {
-        align-self: stretch; /* Botão ocupa tudo no celular */
-    }
-}
-
-/* Ajuste no container do texto para o botão respirar */
-.blog-content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Empurra o botão para o rodapé do card */
-}
-
-/* Responsividade para Celulares */
-@media (max-width: 768px) {
-    .blog-card {
-        grid-template-columns: 1fr; /* Empilha no mobile */
-    }
-    
-    .blog-image {
-        height: 200px;
+        align-self: stretch !important;
+        text-align: center;
     }
 }
 
@@ -1561,4 +1528,3 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
         width: 20px;
         height: 20px;
     }
-}
