@@ -235,7 +235,7 @@ function initCookieBanner() {
 let artigosGerais = []; // Armazena todos os artigos vindos do JSON
 let artigosExibidos = 0; // Contador de quantos já estão na tela
 const LIMITE_POR_VEZ = 10;
-const LIMITE_MAXIMO = 50;
+const LIMITE_MAXIMO = 100;
 
 async function carregarArtigos() {
     const container = document.getElementById('lista-artigos');
@@ -244,7 +244,7 @@ async function carregarArtigos() {
     try {
         // Carrega o JSON apenas na primeira vez
         if (artigosGerais.length === 0) {
-            const resposta = await fetch('./artigos.json');
+            const resposta = await fetch('./artigos.json?v=' + new Date().getTime());
             if (!resposta.ok) throw new Error('Erro ao carregar JSON');
             artigosGerais = await resposta.json();
         }
@@ -259,20 +259,22 @@ async function carregarArtigos() {
 function exibirProximosArtigos() {
     const container = document.getElementById('lista-artigos');
     
-    // Se já chegamos em 50, adiciona o botão de "Próxima Página" e para
     if (artigosExibidos >= LIMITE_MAXIMO || artigosExibidos >= artigosGerais.length) {
         adicionarBotaoProximaPagina();
         return;
     }
 
-    // Pega os próximos 10 artigos do array
     const proximaLote = artigosGerais.slice(artigosExibidos, artigosExibidos + LIMITE_POR_VEZ);
 
     proximaLote.forEach((artigo, index) => {
+        // --- ADICIONE ESTA LINHA ABAIXO ---
+        // Verifica se o campo 'novo' no JSON é true
+        const etiquetaNovo = artigo.novo ? '<span class="badge-novo">NOVO</span>' : '';
+
         const layout = `
             <article class="blog-card" ${index === proximaLote.length - 1 ? 'id="ultimo-artigo"' : ''}>
                 <div class="blog-image">
-                    <img src="${artigo.imagem}" alt="${artigo.titulo}" loading="lazy">
+                    ${etiquetaNovo} <img src="${artigo.imagem}" alt="${artigo.titulo}" loading="lazy">
                 </div>
                 <div class="blog-content">
                     <div class="blog-text-wrapper">
@@ -287,8 +289,6 @@ function exibirProximosArtigos() {
     });
 
     artigosExibidos += proximaLote.length;
-
-    // Configura o observador para o novo "último artigo"
     observarUltimoArtigo();
 }
 
