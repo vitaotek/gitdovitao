@@ -488,6 +488,7 @@ h2::after {
 }
 
 .blog-card {
+    animation: fadeIn 0.5s ease forwards;
     display: grid !important;
     grid-template-columns: 350px 1fr; 
     background: var(--card-bg) !important;
@@ -495,6 +496,11 @@ h2::after {
     border-radius: 16px !important;
     overflow: hidden;
     transition: var(--transition-smooth);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .blog-card:hover {

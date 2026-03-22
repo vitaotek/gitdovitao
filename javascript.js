@@ -231,22 +231,48 @@ function initCookieBanner() {
 }
 
 
-// CRIAR ARTIGOS NO BLOG.HTML DINAMICAMENTE A PARTIR DE UM ARQUIVO JSON
+// VARIÁVEIS DE CONTROLE DO BLOG
+let artigosGerais = []; // Armazena todos os artigos vindos do JSON
+let artigosExibidos = 0; // Contador de quantos já estão na tela
+const LIMITE_POR_VEZ = 10;
+const LIMITE_MAXIMO = 50;
+
 async function carregarArtigos() {
     const container = document.getElementById('lista-artigos');
-    
-    // Se o container não existir (ex: na Home), sai da função sem dar erro
-    if (!container) return; 
-    
-    try {
-        // O './' ajuda o navegador a localizar o arquivo na mesma pasta
-        const resposta = await fetch('./artigos.json');
-        const artigos = await resposta.json();
+    if (!container) return;
 
-        container.innerHTML = artigos.map(artigo => `
-            <article class="blog-card">
+    try {
+        // Carrega o JSON apenas na primeira vez
+        if (artigosGerais.length === 0) {
+            const resposta = await fetch('./artigos.json');
+            if (!resposta.ok) throw new Error('Erro ao carregar JSON');
+            artigosGerais = await resposta.json();
+        }
+
+        exibirProximosArtigos();
+    } catch (erro) {
+        console.error("Erro no blog:", erro);
+        container.innerHTML = "<p>Erro ao carregar artigos.</p>";
+    }
+}
+
+function exibirProximosArtigos() {
+    const container = document.getElementById('lista-artigos');
+    
+    // Se já chegamos em 50, adiciona o botão de "Próxima Página" e para
+    if (artigosExibidos >= LIMITE_MAXIMO || artigosExibidos >= artigosGerais.length) {
+        adicionarBotaoProximaPagina();
+        return;
+    }
+
+    // Pega os próximos 10 artigos do array
+    const proximaLote = artigosGerais.slice(artigosExibidos, artigosExibidos + LIMITE_POR_VEZ);
+
+    proximaLote.forEach((artigo, index) => {
+        const layout = `
+            <article class="blog-card" ${index === proximaLote.length - 1 ? 'id="ultimo-artigo"' : ''}>
                 <div class="blog-image">
-                    <img src="${artigo.imagem}" alt="${artigo.titulo}">
+                    <img src="${artigo.imagem}" alt="${artigo.titulo}" loading="lazy">
                 </div>
                 <div class="blog-content">
                     <div class="blog-text-wrapper">
@@ -256,15 +282,47 @@ async function carregarArtigos() {
                     <a href="${artigo.link}" class="btn-read-more">Ler Artigo Completo</a>
                 </div>
             </article>
-        `).join('');
+        `;
+        container.insertAdjacentHTML('beforeend', layout);
+    });
 
-    } catch (erro) {
-        console.error("Erro ao carregar artigos:", erro);
-        container.innerHTML = "<p>Erro ao carregar os artigos. Tente novamente mais tarde.</p>";
-    }
+    artigosExibidos += proximaLote.length;
+
+    // Configura o observador para o novo "último artigo"
+    observarUltimoArtigo();
 }
 
-// Executa a função assim que a página carrega
+function observarUltimoArtigo() {
+    const ultimoArtigo = document.querySelector('#ultimo-artigo');
+    if (!ultimoArtigo) return;
+
+    const observerBlog = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            observerBlog.unobserve(ultimoArtigo); // Para de observar o antigo último
+            ultimoArtigo.removeAttribute('id'); // Remove o ID para não confundir o próximo
+            exibirProximosArtigos(); // Carrega mais 10
+        }
+    }, { threshold: 0.5 });
+
+    observerBlog.observe(ultimoArtigo);
+}
+
+function adicionarBotaoProximaPagina() {
+    const container = document.getElementById('lista-artigos');
+    // Verifica se o botão já existe para não duplicar
+    if (document.getElementById('btn-proxima-pagina')) return;
+
+    const btnHtml = `
+        <div style="display: flex; justify-content: center; padding: 40px 0;">
+            <a href="blog-pagina-2.html" id="btn-proxima-pagina" class="btn-read-more" style="align-self: center !important;">
+                Ver Mais Artigos (Página 2)
+            </a>
+        </div>
+    `;
+    container.insertAdjacentHTML('afterend', btnHtml);
+}
+
+// Inicialização
 document.addEventListener('DOMContentLoaded', carregarArtigos);
 
 
