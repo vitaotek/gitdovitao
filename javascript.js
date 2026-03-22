@@ -235,8 +235,12 @@ function initCookieBanner() {
 async function carregarArtigos() {
     const container = document.getElementById('lista-artigos');
     
+    // Se o container não existir (ex: na Home), sai da função sem dar erro
+    if (!container) return; 
+    
     try {
-        const resposta = await fetch('artigos.json');
+        // O './' ajuda o navegador a localizar o arquivo na mesma pasta
+        const resposta = await fetch('./artigos.json');
         const artigos = await resposta.json();
 
         container.innerHTML = artigos.map(artigo => `
