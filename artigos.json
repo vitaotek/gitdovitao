@@ -1,17 +1,22 @@
 [
   {
-    "titulo": "Como funciona a ATIVAÇÃO PERMANENTE do OFFICE",
+    "titulo": "TESTANDO NOTIFICAÇÃO DE NOVAS PUBLICAÇÕES",
     "resumo": "Entenda os detalhes técnicos sobre o processo de licenciamento no Windows.",
     "imagem": "https://img.youtube.com/vi/iKEAqlp8rUg/maxresdefault.jpg",
     "link": "artigos/office.html",
     "novo": true
   },
   {
+    "titulo": "Como funciona a ATIVAÇÃO PERMANENTE do OFFICE",
+    "resumo": "Entenda os detalhes técnicos sobre o processo de licenciamento no Windows.",
+    "imagem": "https://img.youtube.com/vi/iKEAqlp8rUg/maxresdefault.jpg",
+    "link": "artigos/office.html"
+  },
+  {
     "titulo": "Guia Completo: VirtualBox",
     "resumo": "Aprenda a criar ambientes isolados e seguros para testes de softwares.",
     "imagem": "https://img.youtube.com/vi/Qg4Y24zR-M0/maxresdefault.jpg",
-    "link": "artigos/guia-virtualbox.html",
-    "novo": true
+    "link": "artigos/guia-virtualbox.html"
   },
   {
     "titulo": "Guia Completo: VirtualBox (Cópia 2)",
