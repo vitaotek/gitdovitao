@@ -596,6 +596,50 @@ h2::after {
     }
 }
 
+/* NOTIFICAÇÃO DE NOVAS POSTAGENS NO BLOG
+.toast-novo-post {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px); /* Começa escondido abaixo */
+    background: var(--card-bg);
+    border: 2px solid var(--primary-purple);
+    padding: 15px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast-novo-post.mostrar {
+    transform: translateX(-50%) translateY(0); /* Sobe para a tela */
+}
+
+.toast-novo-post span {
+    color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.toast-novo-post button {
+    background: var(--primary-purple);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+}
+
+.toast-novo-post button:hover {
+    background: var(--primary-blue);
+}
+
 
 /* 10. MODAL */
 .video-modal {

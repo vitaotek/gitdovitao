@@ -328,6 +328,34 @@ function adicionarBotaoProximaPagina() {
 document.addEventListener('DOMContentLoaded', carregarArtigos);
 
 
+// VERIFICAR POR ATUALIZAÇÕES NO JSON DO BLOG
+const INTERVALO_CHAVE = 120000; // 120.000ms = 2 minutos
+
+function iniciarVigiaDeConteudo() {
+    setInterval(async () => {
+        try {
+            // Busca a versão mais recente do JSON ignorando o cache
+            const check = await fetch('./artigos.json?v=' + new Date().getTime());
+            const dadosNovos = await check.json();
+
+            // Se o JSON novo tiver mais itens que o que carregamos inicialmente
+            if (dadosNovos.length > artigosGerais.length) {
+                const aviso = document.getElementById('aviso-novidades');
+                if (aviso) aviso.classList.add('mostrar');
+            }
+        } catch (e) {
+            console.log("Vigia: Erro ao checar novidades.");
+        }
+    }, INTERVALO_CHAVE);
+}
+
+// Chame o vigia quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+    carregarArtigos(); // Sua função atual
+    iniciarVigiaDeConteudo(); // O novo vigia
+});
+
+
 // Inicializa quando o HTML terminar de carregar
 document.addEventListener("DOMContentLoaded", initCookieBanner);
 
