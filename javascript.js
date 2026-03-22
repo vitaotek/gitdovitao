@@ -258,7 +258,8 @@ async function carregarArtigos() {
 
 function exibirProximosArtigos() {
     const container = document.getElementById('lista-artigos');
-    
+    if (!container) return;
+
     if (artigosExibidos >= LIMITE_MAXIMO || artigosExibidos >= artigosGerais.length) {
         adicionarBotaoProximaPagina();
         return;
@@ -267,21 +268,22 @@ function exibirProximosArtigos() {
     const proximaLote = artigosGerais.slice(artigosExibidos, artigosExibidos + LIMITE_POR_VEZ);
 
     proximaLote.forEach((artigo, index) => {
-        // --- ADICIONE ESTA LINHA ABAIXO ---
-        // Verifica se o campo 'novo' no JSON é true
-        const etiquetaNovo = artigo.novo ? '<span class="badge-novo">NOVO</span>' : '';
+        // VERSÃO SEGURA: Se 'novo' não existir no JSON, ele assume que é false
+        const eNovo = artigo.novo === true || artigo.novo === "true";
+        const etiquetaNovo = eNovo ? '<span class="badge-novo">NOVO</span>' : '';
 
         const layout = `
             <article class="blog-card" ${index === proximaLote.length - 1 ? 'id="ultimo-artigo"' : ''}>
                 <div class="blog-image">
-                    ${etiquetaNovo} <img src="${artigo.imagem}" alt="${artigo.titulo}" loading="lazy">
+                    ${etiquetaNovo}
+                    <img src="${artigo.imagem}" alt="${artigo.titulo || 'Artigo'}" loading="lazy">
                 </div>
                 <div class="blog-content">
                     <div class="blog-text-wrapper">
-                        <h3>${artigo.titulo}</h3>
-                        <p>${artigo.resumo}</p>
+                        <h3>${artigo.titulo || 'Sem título'}</h3>
+                        <p>${artigo.resumo || ''}</p>
                     </div>
-                    <a href="${artigo.link}" class="btn-read-more">Ler Artigo Completo</a>
+                    <a href="${artigo.link || '#'}" class="btn-read-more">Ler Artigo Completo</a>
                 </div>
             </article>
         `;
