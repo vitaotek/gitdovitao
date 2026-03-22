@@ -476,6 +476,129 @@ h2::after {
 
 
 
+/* Container da lista */
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Card do Artigo */
+.blog-card {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Imagem na esquerda (350px), texto no resto */
+    gap: 25px;
+    background: rgba(255, 255, 255, 0.05); /* Fundo escuro sutil */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    border-color: #a855f7; /* Cor roxa do VitãoTub */
+}
+
+.blog-image {
+    width: 100%;
+    height: 100%;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+}
+
+/* Container do texto do artigo */
+.blog-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Texto no topo, botão no rodapé */
+}
+
+.blog-text-wrapper h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.blog-text-wrapper p {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.blog-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.blog-content p {
+    color: var(--text-dim); /* Supondo que você tenha essa variável para cinza */
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* O botão com alinhamento à direita */
+.btn-read-more {
+    align-self: flex-end; /* ALINHAMENTO À DIREITA */
+    padding: 12px 24px;
+    background-color: #a855f7;
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.btn-read-more:hover {
+    background-color: #3b82f6; /* Azul no hover conforme solicitado */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Ajuste para Celular (Responsivo) */
+@media (max-width: 768px) {
+    .blog-card {
+        grid-template-columns: 1fr; /* Empilha imagem e texto */
+    }
+    
+    .blog-image {
+        height: 200px;
+    }
+    
+    .btn-read-more {
+        align-self: stretch; /* Botão ocupa tudo no celular */
+    }
+}
+
+/* Ajuste no container do texto para o botão respirar */
+.blog-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra o botão para o rodapé do card */
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 768px) {
+    .blog-card {
+        grid-template-columns: 1fr; /* Empilha no mobile */
+    }
+    
+    .blog-image {
+        height: 200px;
+    }
+}
+
+
 /* 10. MODAL */
 .video-modal {
     display: none; /* Escondido por padrão */
