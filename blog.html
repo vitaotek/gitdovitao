@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+
+    <title>Victor Lopes | VitãoTub</title>
+    <meta name="description" content="Aprenda segurança digital, otimização de sistemas e reviews técnicos de games com o VitãoTub. Tecnologia acessível para dominar o seu PC.">
+    <meta name="keywords" content="vitãotub, vitãotek, tecnologia, tutoriais, testes, curiosidades, games, segurança da informação, antivírus, stream, gameplay, teste de antivírus">
+    <meta name="author" content="Victor Lopes">
+    <link rel="canonical" href="https://www.vitaotub.com/blog.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.vitaotub.com/">
+    <meta property="og:title" content="Victor Lopes | VitãoTub">
+    <meta property="og:description" content="Transformando tecnologia complexa em conhecimento acessível. Mais de 16 mil inscritos no YouTube.">
+    <meta property="og:image" content="https://img.youtube.com/vi/BbQccfi-1D8/maxresdefault.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.vitaotub.com/">
+    <meta property="twitter:title" content="Victor Lopes | VitãoTub">
+    <meta property="twitter:description" content="Segurança digital e otimização de sistemas e softwares de forma acessível.">
+    <meta property="twitter:image" content="https://img.youtube.com/vi/BbQccfi-1D8/maxresdefault.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="home">
+
+    <div class="bg-wrapper" aria-hidden="true">
+        <div class="bg-gradient-1"></div>
+        <div class="bg-noise"></div>
+    </div>
+
+<header>
+    <div class="header-content">
+        <a href="#home" class="logo-link">
+            <h1>Vitãotub<span>.</span></h1>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Voltar ao site principal</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    
+<section id="blog-posts">
+    <div class="container">
+        <h2>Artigos e Tutoriais</h2>
+        <div id="lista-artigos" class="blog-list"></div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Victor Lopes | VitãoTub</p>
+        <div class="footer-links" style="margin-top: 10px; font-size: 0.8rem;">
+            <a href="javascript:void(0)" onclick="openPrivacyModal()">Política de Privacidade</a> | 
+            <a href="javascript:void(0)" onclick="openTermsModal()">Termos de Uso</a>
+        </div>
+    </div>
+</footer>
+
+<a href="#home" id="back-to-top" class="back-to-top" aria-label="Voltar ao topo da página">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+</a>
+
+<div id="toast-container" class="toast-overlay">
+    <div id="toast-notification" class="toast-central">
+        <div class="toast-content">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="30" height="30" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+            </div>
+            <h3>Quase lá 🚀</h3>
+            <p>Abrimos o seu e-mail com todos os detalhes preenchidos. Verifique a janela do seu aplicativo de e-mail e finalize o envio por lá. Te respondo em breve!</p>
+            <button type="button" class="toast-close-btn" onclick="closeToast()">Entendido</button>
+        </div>
+    </div>
+</div>
+
+<div id="google_translate_element"></div>
+
+<script src="javascript.js"></script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'pt', 
+    includedLanguages: 'en,es,pt', 
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: true
+  }, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div id="lgpd-banner" class="lgpd-overlay">
+    <div class="lgpd-container">
+        <div class="lgpd-content">
+            <p>Respeitamos sua privacidade. Utilizamos cookies para melhorar sua experiência técnica e analisar o tráfego. 
+            Consulte nossa <a href="javascript:void(0)" onclick="openPrivacyModal()" style="color: var(--primary-purple); text-decoration: underline;">Política de Privacidade</a>.</p>
+        </div>
+        <div class="lgpd-actions">
+            <button id="lgpd-reject" class="lgpd-btn-secondary">Recusar</button>
+            <button id="lgpd-accept" class="lgpd-btn-main">Aceitar</button>
+        </div>
+    </div>
+</div>
+
+<div id="privacy-modal" class="video-modal"> 
+    <div class="modal-overlay" onclick="closePrivacyModal()"></div>
+    <div class="modal-content" style="max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 30px; background: #111; border: 1px solid #333; position: relative; z-index: 10002;">
+        <button class="modal-close" onclick="closePrivacyModal()" style="position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer;">&times;</button>
+        <div id="privacy-content-target">
+            <p>Carregando política completa...</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

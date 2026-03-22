@@ -230,6 +230,40 @@ function initCookieBanner() {
     }
 }
 
+
+// CRIAR ARTIGOS NO BLOG.HTML DINAMICAMENTE A PARTIR DE UM ARQUIVO JSON
+async function carregarArtigos() {
+    const container = document.getElementById('lista-artigos');
+    
+    try {
+        const resposta = await fetch('artigos.json');
+        const artigos = await resposta.json();
+
+        container.innerHTML = artigos.map(artigo => `
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="${artigo.imagem}" alt="${artigo.titulo}">
+                </div>
+                <div class="blog-content">
+                    <div class="blog-text-wrapper">
+                        <h3>${artigo.titulo}</h3>
+                        <p>${artigo.resumo}</p>
+                    </div>
+                    <a href="${artigo.link}" class="btn-read-more">Ler Artigo Completo</a>
+                </div>
+            </article>
+        `).join('');
+
+    } catch (erro) {
+        console.error("Erro ao carregar artigos:", erro);
+        container.innerHTML = "<p>Erro ao carregar os artigos. Tente novamente mais tarde.</p>";
+    }
+}
+
+// Executa a função assim que a página carrega
+document.addEventListener('DOMContentLoaded', carregarArtigos);
+
+
 // Inicializa quando o HTML terminar de carregar
 document.addEventListener("DOMContentLoaded", initCookieBanner);
 
