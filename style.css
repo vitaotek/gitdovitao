@@ -476,171 +476,6 @@ h2::after {
 
 
 
-/* =========================================
-   SEÇÃO DO BLOG (CARREGAMENTO DINÂMICO)
-   ========================================= */
-
-#lista-artigos {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 30px !important;
-    margin-top: 40px;
-}
-
-.blog-card {
-    animation: fadeIn 0.5s ease forwards;
-    display: grid !important;
-    grid-template-columns: 350px 1fr; 
-    background: var(--card-bg) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-radius: 16px !important;
-    overflow: hidden;
-    transition: var(--transition-smooth);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.blog-card:hover {
-    border-color: var(--primary-purple) !important;
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.02) !important;
-}
-
-.blog-image {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Estilo da Etiqueta Novo */
-.badge-novo {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--primary-blue); /* Azul para destacar do roxo */
-    color: white;
-    padding: 6px 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border-radius: 6px;
-    z-index: 10;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    letter-spacing: 1px;
-    animation: pulseNovo 2s infinite; /* Animação opcional */
-}
-
-/* Animação para chamar atenção */
-@keyframes pulseNovo {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.blog-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover !important;
-}
-
-.blog-content {
-    padding: 30px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important; /* Empurra o botão para baixo */
-}
-
-.blog-text-wrapper h3 {
-    font-size: 1.5rem !important;
-    color: var(--text-main) !important;
-    margin-bottom: 12px !important;
-}
-
-.blog-text-wrapper p {
-    color: var(--text-dim) !important;
-    line-height: 1.6 !important;
-    margin-bottom: 20px !important;
-}
-
-/* Botão "Ler Mais" alinhado à direita */
-.btn-read-more {
-    align-self: flex-end !important; 
-    background: var(--primary-purple) !important;
-    color: white !important;
-    padding: 12px 28px !important;
-    border-radius: 12px !important;
-    text-decoration: none !important;
-    font-weight: 600 !important;
-    transition: var(--transition-smooth) !important;
-}
-
-.btn-read-more:hover {
-    background: var(--primary-blue) !important;
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3) !important;
-    transform: translateY(-2px);
-}
-
-/* Responsividade para Celular */
-@media (max-width: 768px) {
-    .blog-card {
-        grid-template-columns: 1fr !important;
-    }
-    .blog-image {
-        height: 220px !important;
-    }
-    .btn-read-more {
-        align-self: stretch !important;
-        text-align: center;
-    }
-}
-
-/* NOTIFICAÇÃO DE NOVAS POSTAGENS NO BLOG
-.toast-novo-post {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px); /* Começa escondido abaixo */
-    background: var(--card-bg);
-    border: 2px solid var(--primary-purple);
-    padding: 15px 25px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 10001;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.toast-novo-post.mostrar {
-    transform: translateX(-50%) translateY(0); /* Sobe para a tela */
-}
-
-.toast-novo-post span {
-    color: white;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.toast-novo-post button {
-    background: var(--primary-purple);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 0.8rem;
-    transition: background 0.3s;
-}
-
-.toast-novo-post button:hover {
-    background: var(--primary-blue);
-}
-
-
 /* 10. MODAL */
 .video-modal {
     display: none; /* Escondido por padrão */
@@ -669,7 +504,8 @@ h2::after {
 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 16px; width: 100%; outline: none; transition: 0.3s; }
 input:focus, textarea:focus { border-color: var(--primary-purple); }
-button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; width: 60%; }
+button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; width: 50%; display: inline-block; margin: 10px auto 0; }
+button[type="submit"]:hover { background: var(--primary-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
 
 .checkbox-container label {
     user-select: none;
@@ -1603,3 +1439,4 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
         width: 20px;
         height: 20px;
     }
+}
