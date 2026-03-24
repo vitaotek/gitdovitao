@@ -669,7 +669,7 @@ h2::after {
 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 16px; width: 100%; outline: none; transition: 0.3s; }
 input:focus, textarea:focus { border-color: var(--primary-purple); }
-button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; width: 60%; }
 
 .checkbox-container label {
     user-select: none;
