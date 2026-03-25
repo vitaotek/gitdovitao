@@ -118,8 +118,6 @@ h2::after {
 }
 
 
-
-
 /* VÍDEO PRINCIPAL */
 
 /* Ajuste da Seção Hero Estilo Courseline */
@@ -458,8 +456,6 @@ h2::after {
     }
 }
 
-
-
 /* Ajuste Responsivo */
 @media (max-width: 600px) {
     .video-rect {
@@ -473,7 +469,6 @@ h2::after {
         padding: 15px;
     }
 }
-
 
 
 /* 10. MODAL */
@@ -499,38 +494,53 @@ h2::after {
 .modal-video-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 .modal-close { position: absolute; top: -50px; right: 0; background: none; border: none; color: #fff; font-size: 40px; cursor: pointer; }
 
+
 /* 11. FORMULÁRIO */
 #contact-form { display: flex; flex-direction: column; gap: 20px; }
 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 input, textarea { padding: 20px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 16px; width: 100%; outline: none; transition: 0.3s; }
 input:focus, textarea:focus { border-color: var(--primary-purple); }
-button[type="submit"] { padding: 20px; background: var(--primary-purple); color: #fff; border: none; border-radius: 16px; font-weight: 900; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; width: 50%; display: inline-block; margin: 10px auto 0; }
-button[type="submit"]:hover { background: var(--primary-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
-
-.checkbox-container label {
-    user-select: none;
+button[type="submit"] { 
+    padding: 16px 40px; 
+    background: var(--gradient-brand); /* Usando o seu gradiente roxo/azul */
+    color: #fff; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 12px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: var(--transition-smooth); /* Usa a transição que você já definiu */
+    text-transform: uppercase; 
+    width: 40%;
+    min-width: 200px;
+    align-self: center; 
+    letter-spacing: 1px; 
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+/* ANIMAÇÃO AO PASSAR O MOUSE */
+button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.1);
 }
 
-.checkbox-group {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%; /* Ocupa a largura total para poder centralizar */
+/* ANIMAÇÃO AO CLICAR */
+button[type="submit"]:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
 }
 
-.checkbox-group label {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    cursor: pointer;
-    text-align: center;
+/* AJUSTE MOBILE: no celular ele volta a ser largura total para facilitar o clique */
+@media (max-width: 600px) {
+    .input-group { grid-template-columns: 1fr; }
+    button[type="submit"] {
+        width: 100%;
+    }
 }
 
-input[type="checkbox"]:focus {
-    outline: 2px solid var(--primary-purple);
-    outline-offset: 2px;
-}
+.checkbox-container label { user-select: none; }
+.checkbox-group { margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; }
+.checkbox-group label { font-size: 0.9rem; color: var(--text-dim); cursor: pointer; text-align: center; }
+input[type="checkbox"]:focus { outline: 2px solid var(--primary-purple); outline-offset: 2px; }
 
 /* Estilo da Popup de Sucesso (Toast) */
 .toast {
@@ -587,6 +597,8 @@ input[type="checkbox"]:focus {
 
 /* Card Retangular Largo */
 .toast-central {
+    transform: scale(0.8); /* Começa menor */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background: #111;
     border: 1px solid var(--primary-purple);
     padding: 60px 40px;
@@ -598,11 +610,15 @@ input[type="checkbox"]:focus {
 }
 
 /* Esta é a classe que o JavaScript adiciona */
-.toast-overlay.show {
-    display: flex !important;
+.toast-overlay.show { 
+    display: flex !important; 
+    opacity: 1; 
+    visibility: visible; 
 }
-.toast-overlay.show { opacity: 1; visibility: visible; }
-.toast-overlay.show .toast-central { transform: scale(1); }
+
+.toast-overlay.show .toast-central { 
+    transform: scale(1); /* Cresce ao aparecer */
+}
 
 /* Ícone de Sucesso */
 .success-icon {
@@ -674,7 +690,7 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
     .stats-grid { grid-template-columns: 1fr; }
 }
 
-/* 14. SCROLL REVEAL (VERSÃO CORRIGIDA) */
+/* 14. SCROLL REVEAL */
 
 @keyframes reveal-up {
     from { 
@@ -717,6 +733,7 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
         transform: none !important;
     }
 }
+
 
 /* --- ADIÇÕES DE ESTATÍSTICAS E GRÁFICOS --- */
 
@@ -974,8 +991,6 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
         width: 100%;
     }
 }
-
-
 
 #featured-videos {
     padding: 80px 0;
@@ -1438,5 +1453,60 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
     .back-to-top svg {
         width: 20px;
         height: 20px;
+    }
+}
+
+/* --- ESTILIZAÇÃO DO BOTÃO DE BIO (HOME) --- */
+
+.bio-cta-wrapper {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* Animação de entrada seguindo o padrão do site */
+    view-timeline-name: --revealing;
+    view-timeline-axis: block;
+    animation: reveal-up linear both;
+    animation-timeline: --revealing;
+    animation-range: entry 5% cover 25%;
+}
+
+.btn-home {
+    background: var(--gradient-brand);
+    color: #fff;
+    padding: 18px 35px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+}
+
+.btn-home i {
+    font-size: 1.2rem;
+}
+
+.btn-home:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.1);
+    color: #fff;
+}
+
+/* Ajuste para Mobile */
+@media (max-width: 600px) {
+    .btn-home {
+        width: 100%;
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+    .bio-cta-wrapper {
+        padding: 0 20px;
     }
 }
