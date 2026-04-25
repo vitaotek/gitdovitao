@@ -985,6 +985,9 @@ footer { padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-ali
 .telegram .stat-icon { color: #0088cc; }
 .telegram:hover { box-shadow: 0 0 20px rgba(0, 136, 204, 0.2); border-color: #0088cc; }
 
+.github .stat-icon { color: #ffffff; }
+.github:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); border-color: #ffffff; }
+
 /* Ajuste Mobile */
 @media (max-width: 600px) {
     .social-grid-center .stat-card {
