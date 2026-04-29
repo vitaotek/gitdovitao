@@ -1,0 +1,194 @@
+ASSIM QUE INSTALAR O FEDORA, VERIFIQUE POR ATUALIZAÇÕES, APLIQUE TODAS AS ATUALIZAÇÕES E REINICIE O COMPUTADOR.
+
+
+DOCUMENTAÇÃO OFICIAL DO FEDORA
+https://docs.fedoraproject.org/en-US/quick-docs/
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+ANTES DE TUDO, ABRA O TERMINAL E:
+sudo dnf update
+sudo dnf upgrade
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+ATIVAR RPM FUSION
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+sudo dnf groupupdate core
+sudo dnf update --refresh
+sudo dnf upgrade --refresh -y
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+SUPORTE A FLATPAK
+* APÓS ADICIONAR NAS CONFIGURAÇÕES DO GERENCIADOR DE APPS, FAÇA ISSO:
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+* ESTE COMANDO IRÁ ATIVAR SUPORTE AOS FLATPAKS "NON-FREE"
+
+sudo dnf update --refresh
+sudo dnf upgrade --refresh -y
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+CORRIGIR PROBLEMAS DE DATA E HORA EM DUALBOOT
+sudo timedatectl set-local-rtc '0'
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR LANGPACK COMPLETO
+dnf -y install langpacks-pt_BR
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR CORRETOR ORTOGRÁFICO
+sudo dnf install hunspell-br
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+DEFINIR LÍNGUA DO SISTEMA
+localectl set-locale LANG=pt_BR
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+REINICIE O COMPUTADOR!
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+DESABILITAR "NetworkManager-wait-online.service" PARA ACELERAR TEMPO DE BOOT
+sudo systemctl disable NetworkManager-wait-online.service
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR SUPORTE A 7Z & RAR
+sudo dnf install -y unzip p7zip p7zip-plugins unrar
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR CODECS ESSENCIAIS
+REFERÊNCIA: https://rpmfusion.org/Howto/Multimedia
+
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf groupupdate sound-and-video
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+sudo dnf install libavcodec-freeworld gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly ffmpeg-libs
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+VERIFIQUE SE OS DRIVERS VULKAN ESTÃO COMPLETAMENTE INSTALADOS E CARREGADOS
+sudo dnf install mesa-vulkan-drivers mesa-vulkan-drivers.i686
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+* CASO TENHA PROBLEMA COM O SEU MICROFONE OU AUDIO NÃO FUNCIONANDO, TENTE ESTES PASSOS:
+
+REINSTALAR O PIPEWIRE:
+sudo dnf reinstall pipewire
+
+REINSTALAR TODOS OS COMPONENTES DO PIPEWIRE:
+sudo dnf reinstall pipewire pipewire-pulse pipewire-utils wireplumber
+
+INSTALAR PACOTES NECESSÁRIOS AO PIPEWIRE:
+sudo dnf install pipewire-alsa pipewire-jack-audio-connection-kit
+
+FORÇAR REINSTALAÇÃO DO PIPEWIRE COM TODAS AS SUAS DEPENDÊNCIAS:
+sudo dnf reinstall pipewire* wireplumber*
+
+REINSTALAR OS DRIVERS ALSA:
+sudo dnf reinstall alsa-lib alsa-utils
+
+INSTALAR FIRMWARE ALSA QUE ESTEJA FALTANDO:
+sudo dnf install alsa-firmware
+
+REINSTALAR TODOS OS PACOTES RELACIONADOS AO ALSA:
+sudo dnf reinstall alsa*
+
+RECARREGAR O ALSA APÓS SUA REINSTALAÇÃO:
+sudo alsactl restore
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+REINICIAR O PC
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR PELA LOJA DE APPS VIA FLATPAK
+harune, onlyoffice, opera, obs studio, krita, gimp, etc
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+DEFINIR O OPERA COM A LÍNGUA PT-BR
+Editar aplicativos no lançador de aplicativos e no item Opera, em Argumentos da linha de comando, escrever:
+run --branch=stable --arch=x86_64 --command=opera --file-forwarding com.opera.Opera @@u --lang=pt-BR %U @@
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+INSTALAR DRIVERS NVIDIA E EXTRAS:
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda vulkan-tools vulkan-headers vulkan-loader vulkan-validation-layers
+
+DRIVERS PARA PLACAS DE VÍDEO NVIDIA ANTIGAS:
+sudo dnf install xorg-x11-drv-nvidia-470xx akmod-nvidia-470xx xorg-x11-drv-nvidia-libs.i686
+sudo nvidia-xconfig (para gerar o xorg.conf)
+Reinicie o pc
+Inicie a sessão X11
+Abra o terminal e rode: nvidia-smi
+Para verificar se o driver está instalado e funcionando
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+REMOVER KERNEL ANTIGO:
+> Listar os Kernels instalados
+rpm -q kernel-core
+> Remover Kernel
+sudo dnf remove kernel.xxx.xxx
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+LIMPAR TEMPORÁRIOS E RESÍDUOS:
+sudo dnf clean all
+sudo dnf autoremove
+flatpak uninstall --unused
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+UPGRADE DE VERSÕES DO FEDORA:
+> Atualize o sistema
+sudo dnf upgrade --refresh
+> Faça o upgrade para a próxima versão do Fedora
+sudo dnf system-upgrade download --releasever=4X
+
+SEGUIR OS PASSOS OFICIAIS: https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+MIGRAR DO CANAL BETA PARA O CANAL RELEASE DO FEDORA QUANDO A NOVA VERSÃO FOR LANÇADA:
+
+sudo dnf upgrade --refresh
+sudo dnf distro-sync
+REINICIE O PC!
+
+OBS.: GERALMENTE NÃO É NECESSÁRIO FAZER NADA DISSO, MAS CASO PRECISE, ESTES SÃO OS PASSOS.
+
++++++++++++++++++++++++++++++++++++++++++++++++
+
+SOBRE O OBS
+
+> ATIVAR O RECURSO DE CÂMERA VIRTUAL:
+sudo dnf install v4l2loopback
+sudo dnf install v4l-utils
+Reiniciar o OBS!
+
+> HABILITAR OPÇÃO DE ADICIONAR JANELAS COMO FONTES NAS CENAS
+Crie a pasta necessária para o xdg-desktop-portal:
+    mkdir -p ~/.config/xdg-desktop-portal
+Crie e edite o arquivo de configurações:
+    nano ~/.config/xdg-desktop-portal/portals.conf
+Adicione esta linha de comando no arquivo portals.conf
+    backend=kde
+Reinicie o xdg-desktop-portal
+    systemctl --user restart xdg-desktop-portal
+
+Para acessar o recurso, em sources/fontes, adicione uma nova fonte "Captura de Monitor (Pipewire)";
+Mude para a aba "Janelas";
+Escolha a janela que deseja adicionar como fonte de mídia
