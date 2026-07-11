@@ -1,10 +1,22 @@
-# GUIA DE PÓS-INSTALAÇÃO DO FEDORA 44 COM KDE
+# GUIA DE PÓS-INSTALAÇÃO DO FEDORA 44 COM KDE #
 
 
-Assim que instalar o Fedora, abra o terminal, verifique por atualizações, aplique todas as alterações e reinicie o computador.
+###############################################
+GUIA ATUALIZADO EM 11/07/2026
+FALTA REVISAR E TESTAR EM HARDWARE REAL
+###############################################
+
+
+PRIMEIRO PASSO!
+
+Assim que instalar o Fedora, verifique por atualizações, aplique todas e reinicie o computador.
+
 
 * Documentação Oficial do Fedora: [https://docs.fedoraproject.org/en-US/quick-docs/](https://docs.fedoraproject.org/en-US/quick-docs/)
+* Guia adicional: https://ostechnix.com/things-to-do-after-installing-fedora-44/
 
+
+###############################################
 
 
 1. Otimização do Sistema e Idioma
@@ -26,38 +38,79 @@ Aviso: Reinicie o computador após este passo!
 sudo timedatectl set-local-rtc 1
 
 
+###############################################
+
 
 2. Repositórios, Codecs e Aceleração Gráfica
 
 * Ativar Repositórios RPM Fusion (Livre e Não-Livre):
-sudo dnf install [https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm](https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm) -E %fedora).noarch.rpm [https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm](https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm) -E %fedora).noarch.rpm
-sudo dnf upgrade --refresh
 
-* Habilitar suporte completo ao Flatpak (Flathub):
-flatpak remote-add --if-not-exists flathub [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
-flatpak remote-modify --enable flathub
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+sudo dnf update @core
+sudo dnf install rpmfusion-\*-appstream-data
+
+Para evitar um possível bug nos repositórios, rode este comando:
+sudo dnf repolist --all | grep -i fusion
+
+Se o repositório "rpmfusion-free-rawhide" aparecer como ativado, rode estes comandos:
+sudo dnf config-manager setopt rpmfusion-free.enabled=1
+sudo dnf config-manager setopt rpmfusion-free-updates.enabled=1
+sudo dnf config-manager setopt rpmfusion-free-rawhide.enabled=0
+
+
+* Habilitar suporte completo ao Flatpak (Flathub) no KDE:
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo dnf install flatpak
+sudo dnf install plasma-discover-flatpak
+
+flatpak install flathub com.github.tchx84.Flatseal
+
 
 * Instalar suporte a arquivos compactados (7z, RAR e ZIP):
 sudo dnf install unzip 7zip unrar
 
+
 * Instalar Codecs Multimídia Essenciais:
-sudo dnf config-manager --set-enabled fedora-cisco-openh264
-sudo dnf install openh264 gstreamer1-plugin-openh264 mozilla-openh264
-sudo dnf groupinstall multimedia sound-and-video --allowerasing
-sudo dnf install gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly ffmpeg-libs-freeworld
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+sudo dnf install --setopt="install_weak_deps=False" \
+  gstreamer1-plugins-good \
+  gstreamer1-plugins-bad-free \
+  gstreamer1-plugins-bad-freeworld \
+  gstreamer1-plugins-ugly \
+  gstreamer1-plugins-ugly-free \
+  gstreamer1-plugin-openh264 \
+  gstreamer1-plugin-libav \
+  --exclude=PackageKit-gstreamer-plugin
+
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+
+
+* Atualizar Firmwares de Hardwares
+fwupdmgr refresh --force
+fwupdmgr get-devices
+fwupdmgr get-updates
+fwupdmgr update
+sudo dnf install linux-firmware
+
+
+* Extras e DVD Play:
+sudo dnf install rpmfusion-free-release-tainted
+sudo dnf install rpmfusion-nonfree-release-tainted
+sudo dnf install libdvdcss
+sudo dnf --repo=rpmfusion-nonfree-tainted install "*-firmware"
+
 
 * VA-API e Codecs para Aceleração Gráfica (Navegadores e Vídeos):
-Execute o comando correspondente à sua placa de vídeo para habilitar a decodificação por hardware no sistema:
-
-* Comando para Placas AMD:
+Comando para Placas AMD:
+sudo dnf install ffmpeg-libs libva libva-utils
+sudo dnf install mesa-va-drivers-freeworld
+sudo dnf install mesa-va-drivers-freeworld.i686
+ou (caso os comandos acima não funcionem):
 sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
 sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
-* Comando para Placas Intel:
-sudo dnf install intel-media-driver libva-intel-driver
-
-* Comando para Placas NVIDIA:
-sudo dnf install nvidia-vaapi-driver
 
 * ACELERAÇÃO GRÁFICA PARA FLATPAKS:
 Para que apps em Flatpak (como navegadores, Discord, OBS Studio Flatpak) usem a aceleração da sua GPU e codecs do RPM Fusion, você precisa instalar os runtimes de hardware correspondentes:
@@ -69,82 +122,51 @@ flatpak install flathub org.freedesktop.Platform.VAAPI.Intel//24.08
 flatpak install flathub org.freedesktop.Platform.GL.nvidia-560-35-03
 
 
+###############################################
 
-3. Configuração para Jogos (Gaming)
+
+3. INSTALAÇÃO DE FONTES PARA COMPATIBILIDADE:
+sudo dnf install mscore-fonts-all
+sudo dnf install google-noto-fonts google-noto-sans-fonts google-noto-serif-fonts
+
+
+###############################################
+
+
+4. Configuração para Jogos (Gaming)
 
 * Drivers Vulkan Completos (Para GPUs AMD):
-sudo dnf install mesa-vulkan-drivers mesa-vulkan-drivers.i686
+sudo dnf install vulkan-tools mesa-vulkan-drivers mesa-vulkan-drivers.i686 libva.i686 mesa-dri-drivers.i686
 
-* Suporte a 32-bits para Steam e Wine (AMD/Intel):
-sudo dnf install xorg-x11-drv-amdgpu.i686 libva.i686 mesa-vulkan-drivers.i686 mesa-dri-drivers.i686
-
-* Feral GameMode:
-sudo dnf install gamemode gamemode.i686
-
-Como usar: Na Steam, propriedades do jogo > Opções de Inicialização e adicione: gamemoderun %command%
-
-* Gerenciador do Proton GE (ProtonUp-Qt):
-flatpak install flathub com.github.protonup_qt.ProtonUp-Qt
-
-* Launchers de Jogos (Fora da Steam):
-flatpak install flathub com.heroicgameslauncher.hgl
-flatpak install flathub net.lutris.Lutris
+* Steam
+sudo dnf install steam
+sudo dnf install steam-devices
 
 
+###############################################
 
-4. Produção de Áudio, Vídeo e Apps
+
+5. Produção de Áudio, Vídeo e Apps
 
 * Instalação de Aplicativos Recomendados (Via Central de Software / Discover):
-Procure por: Haruna, OnlyOffice, Opera, OBS Studio, Krita, Gimp.
+Procure por: Haruna, OnlyOffice, Opera, OBS Studio, Krita, KDEnLive, ShotCut, etc.
 
-* Traduzir o Navegador Opera (Flatpak):
+* Traduzir o Navegador Opera (Flatpak) caso ele não fique em pt-BR por padrão:
 flatpak config --user extra-languages "pt_BR"
 flatpak override --user --env=LANG=pt_BR.UTF-8 com.opera.Opera
 
 * Câmera Virtual no OBS Studio:
 sudo dnf install v4l2loopback v4l-utils
-
-Nota: Exige que o Secure Boot esteja configurado ou desativado. Reinicie o OBS após instalar.
+Reinicie o OBS após instalar.
+Nota: Exige que o Secure Boot esteja configurado corretamente ou desativado.
 
 * Melhoria de Áudio com EasyEffects:
 flatpak install flathub com.github.wwmm.easyeffects -y
 
-* Instalar perfis da comunidade:
-bash -c "$(curl -fsSL [https://raw.githubusercontent.com/wwmm/easyeffects-presets/master/install.sh](https://raw.githubusercontent.com/wwmm/easyeffects-presets/master/install.sh))"
-
 Nota: Nunca altere o dispositivo padrão do sistema para "Easy Effects Sink" no KDE Plasma. Deixe o app trabalhar invisível em segundo plano.
 
 
-
-5. Configuração de Hardware Específico
-
-* Instalar Drivers Proprietários NVIDIA e Suporte a 32-bits (Gaming/Steam):
-sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-libs.i686 xorg-x11-drv-nvidia-cuda-libs.i686
-
-Aviso: Aguarde 5 minutos antes de reiniciar para o sistema construir o driver em segundo plano. Só então reinicie o PC.
-
-* Instalar DaVinci Resolve em Hardware AMD:
-sudo dnf install rocm-opencl rocm-hip rocminfo
-sudo dnf install libxcrypt-compat apr apr-util mesa-libGLU alsa-plugins-pulseaudio
-
-* Dê permissão e execute o instalador oficial:
-chmod +x DaVinci_Resolve_*Linux.run
-sudo SKIP_PACKAGE_CHECK=1 ./DaVinci_Resolve_*Linux.run
-
-* Se o app fechar sozinho ao abrir, execute estes comandos:
-cd /opt/resolve/libs
-sudo mkdir disabled-libraries
-sudo mv libglib* disabled-libraries/
-sudo mv libgio* disabled-libraries/
-sudo mv libgmodule* disabled-libraries/
-
-* Se apresentar erro de GPU (GPU Error):
-Edite o arquivo executando: nano ~/.local/share/applications/DaVinciResolve.desktop
-Mude a linha Exec para: Exec=env HSA_OVERRIDE_GFX_VERSION=11.0.0 /opt/resolve/bin/resolve %u
-Nota: Use 10.3.0 em vez de 11.0.0 para iGPUs de notebooks Ryzen 4000 a 6000.
-
-Importante: A versão gratuita do DaVinci no Linux não suporta H.264/AAC nativamente. Converta seus arquivos para DNxHR ou ProRes com áudio PCM/WAV antes de editar.
-
+###############################################
 
 
 6. Manutenção e Tarefas Avançadas
@@ -166,5 +188,4 @@ sudo dnf system-upgrade download --releasever=4X
 * Migrar do Canal Beta para o Estável (Release):
 sudo dnf upgrade --refresh
 sudo dnf distro-sync
-
 Aviso: Reinicie o computador após concluir a sincronização.
