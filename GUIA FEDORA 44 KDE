@@ -35,7 +35,7 @@ localectl set-locale LANG=pt_BR
 Aviso: Reinicie o computador após este passo!
 
 * Corrigir problemas de data/hora em Dual-Boot (Windows/Linux):
-sudo timedatectl set-local-rtc 1
+sudo timedatectl set-local-rtc 0
 
 
 ###############################################
@@ -112,22 +112,11 @@ sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
 sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
 
-* ACELERAÇÃO GRÁFICA PARA FLATPAKS:
-Para que apps em Flatpak (como navegadores, Discord, OBS Studio Flatpak) usem a aceleração da sua GPU e codecs do RPM Fusion, você precisa instalar os runtimes de hardware correspondentes:
-
-* Se sua placa for AMD ou Intel:
-flatpak install flathub org.freedesktop.Platform.VAAPI.Intel//24.08
-
-* Se sua placa for NVIDIA (Instale o runtime correspondente ao seu driver, ex: 555, 560):
-flatpak install flathub org.freedesktop.Platform.GL.nvidia-560-35-03
-
-
 ###############################################
 
 
 3. INSTALAÇÃO DE FONTES PARA COMPATIBILIDADE:
 sudo dnf install mscore-fonts-all
-sudo dnf install google-noto-fonts google-noto-sans-fonts google-noto-serif-fonts
 
 
 ###############################################
