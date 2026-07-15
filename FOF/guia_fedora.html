@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUIA DE OTIMIZAÇÃO PARA O FEDORA: FEDORA OTIMIZADO E FÁCIL (FOF)</title>
+    <style>
+        :root {
+            --bg-primary: #0b111e;
+            --bg-card: #151f32;
+            --accent: #3c67e3;
+            --accent-hover: #527bee;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #24334d;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --warning-border: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            color: #fff;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Contêiner para manter o botão principal e o de reverter lado a lado */
+        .grupo-botoes {
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        /* Estilo para o botão de reversão/desinstalação */
+        .btn-reverter {
+            background-color: #ef4444; /* Vermelho escuro */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-reverter:hover {
+            background-color: #dc2626;
+        }
+
+        .etapa-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .etapa-titulo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bloco-comando {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bloco-comando:last-child {
+            margin-bottom: 0;
+        }
+
+        .comando-info h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .comando-info p {
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .aviso-caixa {
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            color: #fbd38d;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-executar {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-executar:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .terminal-log {
+            background-color: #050811;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.85rem;
+            padding: 1rem;
+            margin-top: 1rem;
+
+            /* Altura fixa rigorosa para padronizar todos os blocos */
+            height: 30px;
+            max-height: 30px;
+
+            /* Ativa a rolagem vertical e esconde a horizontal */
+            overflow-y: scroll;
+            overflow-x: hidden;
+
+            white-space: pre-wrap;
+            color: #34d399;
+            display: none;
+
+            /* Suaviza o comportamento de rolagem interna */
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Painel de Configuração Fedora</h1>
+            <p>Gerencie e automatize as instalações do seu sistema de forma visual</p>
+        </header>
+
+        <!-- Bloco de Boas-Vindas e Atualização Inicial -->
+        <section class="etapa-card" style="border-left: 4px solid var(--warning-border); background-color: rgba(21, 31, 50, 0.7);">
+            <div class="etapa-titulo" style="color: #fbd38d;">👋 Bem-vindo ao Painel de Automação!</div>
+            <p style="font-size: 1rem; line-height: 1.6; color: var(--text-main); margin-bottom: 1.25rem;">
+                Antes de prosseguir com as etapas de configuração e instalação de aplicativos, é <strong>altamente recomendado</strong> realizar uma atualização completa no seu sistema operacional. Isso garante a estabilidade dos pacotes e evita conflitos.
+            </p>
+            <div class="bloco-comando" style="background-color: rgba(0, 0, 0, 0.3); margin-bottom: 0;">
+                <div class="comando-info">
+                    <h3>Atualização Geral do Fedora</h3>
+                    <p>Atualiza o índice de repositórios, sincroniza as chaves de segurança e baixa as versões mais recentes de todos os componentes do sistema.</p>
+                    <button class="btn-executar" style="background-color: #d97706;" onclick="executarComando('atualizacao-inicial', 'sudo dnf upgrade --refresh -y')">
+                        🔄 Atualizar Fedora Completamente
+                    </button>
+                </div>
+                <div class="terminal-log" id="log-atualizacao-inicial"></div>
+            </div>
+        </section>
+
+        <!-- Etapa 1: Otimização do Sistema e Idioma -->
+        <section class="etapa-card" id="etapa-1">
+            <div class="etapa-titulo">⚙️ Etapa 1: Otimização do Sistema e Idioma</div>
+
+            <div id="comandos-etapa-1">
+
+                <!-- Comando 1 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Melhorar velocidade de download do DNF</h3>
+                        <p>Configura os downloads paralelos simultâneos e ativa a busca automática pelo espelho de servidor mais rápido no gerenciador de pacotes.</p>
+
+                        <!-- Caixa de seleção de conexões -->
+                        <div style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <label for="select-downloads" style="font-size: 0.9rem; color: var(--text-muted);">Conexões simultâneas:</label>
+                            <select id="select-downloads" style="background-color: var(--bg-primary); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5" selected>5 (Recomendado)</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-botoes">
+                            <button class="btn-executar" onclick="executarAjusteDNF()">Executar Ajuste</button>
+                            <button class="btn-reverter" onclick="reverterComando('dnf-speed', 'sudo dnf config-manager unsetopt max_parallel_downloads && sudo dnf config-manager unsetopt fastestmirror')">Reverter Ajuste</button>
+                        </div>
+
+                    </div>
+                    <div class="terminal-log" id="log-dnf-speed"></div>
+                </div>
+
+                <!-- Comando 3 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Configuração de Idioma e Localidade (PT-BR)</h3>
+                        <p>Instale os pacotes de tradução, o corretor ortográfico e altere a localidade padrão do sistema operacional de forma modular usando os botões abaixo:</p>
+
+                        <div class="aviso-caixa">⚠️ Aviso: Reinicie o computador após concluir o passo 3 para aplicar as alterações de idioma de forma global!</div>
+
+                        <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <!-- Botão 1 -->
+                            <button class="btn-executar" onclick="executarComando('idioma-packs', 'sudo dnf -y install langpacks-pt_BR')">
+                                1. Instalar Tradução do Sistema
+                            </button>
+
+                            <!-- Botão 2 -->
+                            <button class="btn-executar" style="background-color: #4b5563;" onclick="executarComando('idioma-hunspell', 'sudo dnf install hunspell-br -y')">
+                                2. Instalar Corretor Ortográfico
+                            </button>
+
+                            <!-- Botão 3 -->
+                            <button class="btn-executar" style="background-color: #10b981;" onclick="executarComando('idioma-localectl', 'sudo localectl set-locale LANG=pt_BR')">
+                                3. Alterar Localidade para PT-BR
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Caixas de log separadas para cada botão -->
+                    <div class="terminal-log" id="log-idioma-packs"></div>
+                    <div class="terminal-log" id="log-idioma-hunspell"></div>
+                    <div class="terminal-log" id="log-idioma-localectl"></div>
+                </div>
+
+                <!-- Comando 4 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Corrigir problemas de data/hora em Dual-Boot (Windows/Linux)</h3>
+                        <p>Configura o relógio do hardware para usar o padrão UTC, evitando que o Windows e o Linux desorganizem os horários mutuamente ao alternar entre os sistemas.</p>
+                        <button class="btn-executar" onclick="executarComando('dual-boot-time', 'sudo timedatectl set-local-rtc 0')">Corrigir Relógio</button>
+                    </div>
+                    <div class="terminal-log" id="log-dual-boot-time"></div>
+                </div>
+
+            </div>
+        </section>
+
+                <!-- Etapa 2: Repositórios, Codecs e Aceleração Gráfica -->
+        <section class="etapa-card" id="etapa-2">
+            <div class="etapa-titulo">📦 Etapa 2: Repositórios, Codecs e Aceleração Gráfica</div>
+
+            <div id="comandos-etapa-2">
+
+                <!-- Bloco 1 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Ativar Repositórios RPM Fusion (Livre e Não-Livre)</h3>
+                        <p>Instala e sincroniza as fontes de pacotes comunitários essenciais, adiciona os dados para a loja do KDE e aplica uma correção de segurança automática caso o repositório Rawhide tente se ativar indevidamente.</p>
+                        <button class="btn-executar" onclick="executarComando('rpm-fusion', 'sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y && sudo dnf update @core -y && sudo dnf install rpmfusion-*-appstream-data -y && sudo dnf repolist --all | grep -i fusion && sudo dnf config-manager setopt rpmfusion-free.enabled=1 && sudo dnf config-manager setopt rpmfusion-free-updates.enabled=1 && sudo dnf config-manager setopt rpmfusion-free-rawhide.enabled=0')">Ativar RPM Fusion</button>
+                    </div>
+                    <div class="terminal-log" id="log-rpm-fusion"></div>
+                </div>
+
+                <!-- Bloco 2 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Habilitar Suporte Completo ao Flatpak (Flathub) no KDE</h3>
+                        <p>Adiciona o repositório global Flathub, garante a instalação da engine do Flatpak, integra o suporte visual diretamente à loja Discover do KDE e instala a ferramenta Flatseal para gerenciar permissões de aplicativos.</p>
+                        <button class="btn-executar" onclick="executarComando('flatpak-setup', 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && sudo dnf install flatpak -y && sudo dnf install plasma-discover-flatpak -y')">Configurar Flatpak</button>
+                    </div>
+                    <div class="terminal-log" id="log-flatpak-setup"></div>
+                </div>
+
+                <!-- Bloco 3 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Instalar Suporte a Arquivos Compactados (7z, RAR e ZIP)</h3>
+                        <p>Instala os utilitários de linha de comando e bibliotecas necessárias para extrair e compactar arquivos nos formatos zip, rar, 7z e tar pelo gerenciador de arquivos.</p>
+                        <button class="btn-executar" onclick="executarComando('arquivos-compactados', 'sudo dnf install unzip 7zip unrar -y')">Instalar Compactadores</button>
+                    </div>
+                    <div class="terminal-log" id="log-arquivos-compactados"></div>
+                </div>
+
+                <!-- Bloco 4 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Instalar Codecs Multimídia Essenciais</h3>
+                        <p>Substitui a versão limitada do ffmpeg pela versão completa sem restrições de patentes, instala pacotes de codecs gstreamer sem dependências fracas inúteis e ativa o Cisco OpenH264.</p>
+                        <button class="btn-executar" onclick="executarComando('codecs-essenciais', 'sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y && sudo dnf install --setopt=\'install_weak_deps=False\' gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly gstreamer1-plugins-ugly-free gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=PackageKit-gstreamer-plugin -y && sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1')">Instalar Codecs</button>
+                    </div>
+                    <div class="terminal-log" id="log-codecs-essenciais"></div>
+                </div>
+
+                <!-- Bloco 5 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Atualizar Firmwares de Hardware</h3>
+                        <p>Força a atualização dos índices do gerenciador de firmwares do sistema, mapeia os dispositivos e periféricos locais e aplica atualizações de estabilidade e microcódigos da CPU ou firmwares Linux gerais.</p>
+                        <button class="btn-executar" onclick="executarComando('firmware-update', 'fwupdmgr refresh --force && fwupdmgr get-devices && fwupdmgr get-updates && fwupdmgr update -y && sudo dnf install linux-firmware -y')">Atualizar Hardware</button>
+                    </div>
+                    <div class="terminal-log" id="log-firmware-update"></div>
+                </div>
+
+                <!-- Bloco 6 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Extras e DVD Play (Repositórios Tainted)</h3>
+                        <p>Habilita os sub-repositórios restritos para habilitar criptografia de reprodução de DVDs de vídeo comerciais e injetar pacotes extras de firmwares proprietários de hardware travados.</p>
+                        <button class="btn-executar" onclick="executarComando('extras-tainted', 'sudo dnf install rpmfusion-free-release-tainted -y && sudo dnf install rpmfusion-nonfree-release-tainted -y && sudo dnf install libdvdcss -y && sudo dnf --repo=rpmfusion-nonfree-tainted install \'*-firmware\' -y')">Instalar Extras</button>
+                    </div>
+                    <div class="terminal-log" id="log-extras-tainted"></div>
+                </div>
+
+                <!-- Bloco 7 -->
+                <div class="bloco-comando" style="border-left: 4px solid var(--accent);">
+                    <div class="comando-info">
+                        <h3>VA-API e Codecs para Aceleração Gráfica</h3>
+                        <p>Instala drivers e utilitários de aceleração de vídeo em hardware para placas de vídeo AMD e Intel no Fedora. Use o botão principal. Use o botão de contingência apenas se o primeiro acusar conflito de pacotes.</p>
+
+                        <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn-executar" onclick="executarComando('vaapi-amd', 'sudo dnf install ffmpeg-libs libva libva-utils -y && sudo dnf install mesa-va-drivers-freeworld -y && sudo dnf install mesa-va-drivers-freeworld.i686 -y')">🚀 Instalação Padrão (AMD/Intel)</button>
+
+                            <button class="btn-executar" style="background-color: #4b5563;" onclick="executarComando('vaapi-swap', 'sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y && sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y')">🔄 Alternativa (Swap de Segurança)</button>
+                        </div>
+                    </div>
+                    <div class="terminal-log" id="log-vaapi-amd"></div>
+                    <div class="terminal-log" id="log-vaapi-swap"></div>
+                </div>
+
+            </div>
+        </section>
+
+                <!-- Etapa 3: Fontes para Compatibilidade -->
+        <section class="etapa-card" id="etapa-3">
+            <div class="etapa-titulo">🔤 Etapa 3: Fontes para Compatibilidade</div>
+
+            <div id="comandos-etapa-3">
+
+                <!-- Bloco Unificado -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Instalar fontes Microsoft para compatibilidade</h3>
+                        <p>Instala o pacote completo de fontes TrueType da Microsoft (como Arial, Times New Roman, Calibri, entre outras). Essencial para garantir que documentos de texto, planilhas e páginas da web abram com a formatação correta.</p>
+                        <button class="btn-executar" onclick="executarComando('fontes-ms-all', 'sudo dnf install mscore-fonts-all -y')">Instalar Fontes MS</button>
+                    </div>
+                    <div class="terminal-log" id="log-fontes-ms-all"></div>
+                </div>
+
+            </div>
+        </section>
+
+                <!-- Etapa 4: Configuração para Jogos (Gaming) -->
+        <section class="etapa-card" id="etapa-4">
+            <div class="etapa-titulo">🎮 Etapa 4: Configuração para Jogos (Gaming)</div>
+
+            <div id="comandos-etapa-4">
+
+                <!-- Bloco 1 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Drivers Vulkan Completos (Para GPUs AMD)</h3>
+                        <p>Instala as ferramentas e bibliotecas Vulkan em versões de 32 e 64 bits. Indispensável para o Proton converter jogos de Windows para o Linux com alto desempenho.</p>
+                        <button class="btn-executar" onclick="executarComando('vulkan-amd', 'sudo dnf install vulkan-tools mesa-vulkan-drivers mesa-vulkan-drivers.i686 libva.i686 mesa-dri-drivers.i686 -y')">Instalar Drivers Vulkan</button>
+                    </div>
+                    <div class="terminal-log" id="log-vulkan-amd"></div>
+                </div>
+
+                <!-- Bloco 2 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Instalar Steam e Regras de Dispositivos</h3>
+                        <p>Instala a plataforma oficial da Steam no sistema junto com os pacotes de regras de udev necessários para o reconhecimento de manetes e óculos de VR.</p>
+                        <div class="grupo-botoes">
+                        <button class="btn-executar" onclick="executarComando('steam-install', 'sudo dnf install steam steam-devices -y')">Instalar Steam</button>
+                        <button class="btn-reverter" onclick="reverterComando('steam-install', 'sudo dnf remove steam steam-devices -y && sudo dnf autoremove -y')">Desinstalar Steam</button>
+                        </div>
+                    </div>
+                    <div class="terminal-log" id="log-steam-install"></div>
+                </div>
+
+            </div>
+        </section>
+
+                <!-- Etapa 5: Produção de Áudio, Vídeo e Apps -->
+        <section class="etapa-card" id="etapa-5">
+            <div class="etapa-titulo">🎬 Etapa 5: Produção de Áudio, Vídeo e Apps</div>
+
+            <div id="comandos-etapa-5">
+
+                <!-- Bloco 1 (Informativo) -->
+                <div class="bloco-comando" style="border-left: 4px solid var(--text-muted);">
+                    <div class="comando-info">
+                        <h3>Instalação de Aplicativos Recomendados (Via Central de Software / Discover)</h3>
+                        <p>Para uma melhor experiência no Fedora KDE, clique no botão abaixo para abrir a Central de Software e procure manualmente pelos seguintes softwares recomendados:</p>
+
+                        <div style="margin-bottom: 1.25rem;">
+                            <button class="btn-executar" style="background-color: #357a38;" onclick="executarComando('abrir-discover', 'plasma-discover &')">
+                                🛍️ Abrir Central Discover
+                            </button>
+                        </div>
+
+                        <ul style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 0 1rem; padding: 0;">
+                            <li><strong>Haruna</strong> (Player de vídeo moderno feito para o KDE)</li>
+                            <li><strong>OnlyOffice</strong> (Suíte de escritório com máxima compatibilidade com o MS Office)</li>
+                            <li><strong>Opera</strong> (Navegador focado em produtividade e recursos extras)</li>
+                            <li><strong>OBS Studio</strong> (A principal ferramenta para gravação e transmissão de tela)</li>
+                            <li><strong>Krita</strong> (Pintura digital e edição de imagens rasterizadas)</li>
+                            <li><strong>KDEnLive / ShotCut</strong> (Editores de vídeo profissionais e estáveis)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bloco 2 -->
+
+                <!-- Bloco 3 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Ativar Câmera Virtual no OBS Studio</h3>
+                        <p>Instala as ferramentas e o módulo v4l2loopback do kernel para permitir que o OBS crie uma webcam virtual reconhecida por apps de conferência (como Meet, Teams e Discord).</p>
+                        <div class="aviso-caixa" style="margin-bottom: 1rem;">⚠️ Importante: Reinicie o OBS após instalar. Este recurso exige que o Secure Boot da sua placa-mãe esteja configurado com chaves corretas ou desativado para carregar o módulo de kernel.</div>
+                        <button class="btn-executar" onclick="executarComando('obs-cam', 'sudo dnf install v4l2loopback v4l-utils -y')">Instalar Câmera Virtual</button>
+                    </div>
+                    <div class="terminal-log" id="log-obs-cam"></div>
+                </div>
+
+                <!-- Bloco 4 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Melhoria de Áudio com EasyEffects</h3>
+                        <p>Instala o melhor processador e equalizador de efeitos de som para servidores PipeWire, ideal para aplicar redução de ruído em microfones e melhorias de graves nas caixas de som.</p>
+                        <div class="aviso-caixa" style="background-color: rgba(59, 130, 246, 0.1); border-color: #3b82f6; color: #93c5fd;">💡 Nota: Nunca altere manualmente o dispositivo padrão de som do sistema para "Easy Effects Sink" nas configurações do KDE. Deixe o aplicativo trabalhar de forma invisível em segundo plano.</div>
+                        <div class="grupo-botoes">
+                        <button class="btn-executar" onclick="executarComando('instalar-easyeffects', 'flatpak install flathub com.github.wwmm.easyeffects -y')">Instalar EasyEffects</button>
+                        <button class="btn-reverter" onclick="reverterComando('instalar-easyeffects', 'flatpak uninstall com.github.wwmm.easyeffects -y')">Desinstalar EasyEffects</button>
+                        </div>
+                    </div>
+                    <div class="terminal-log" id="log-instalar-easyeffects"></div>
+                </div>
+
+            </div>
+        </section>
+
+                <!-- Etapa 6: Manutenção e Tarefas Avançadas -->
+        <section class="etapa-card" id="etapa-6">
+            <div class="etapa-titulo">🛠️ Etapa 6: Manutenção e Tarefas Avançadas</div>
+
+            <div id="comandos-etapa-6">
+
+                <!-- Bloco 1 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Limpar Arquivos Temporários e Resíduos</h3>
+                        <p>Remove os arquivos de cache baixados pelo DNF, desinstala dependências órfãs que nenhum programa mais utiliza e remove runtimes antigos e não usados do Flatpak.</p>
+                        <button class="btn-executar" onclick="executarComando('limpeza-sistema', 'sudo dnf clean all && sudo dnf autoremove -y && flatpak uninstall --unused -y')">Executar Limpeza</button>
+                    </div>
+                    <div class="terminal-log" id="log-limpeza-sistema"></div>
+                </div>
+
+                <!-- Bloco 2 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Gerenciamento de Kernels Antigos (Opcional)</h3>
+                        <p>Lista todos os kernels atualmente instalados na sua máquina para que você possa remover manualmente versões antigas e liberar espaço na partição /boot.</p>
+                        <div class="aviso-caixa" style="background-color: rgba(59, 130, 246, 0.1); border-color: #3b82f6; color: #93c5fd;">💡 Instrução: O botão listará os kernels. Se desejar apagar algum antigo, digite no terminal secundário: sudo dnf remove nome-do-kernel</div>
+                        <button class="btn-executar" onclick="executarComando('listar-kernels', 'rpm -q kernel-core')">Listar Kernels Instalados</button>
+                    </div>
+                    <div class="terminal-log" id="log-listar-kernels"></div>
+                </div>
+
+                <!-- Bloco 3 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Upgrade de Versão do Fedora</h3>
+                        <p>Prepara o sistema para migrar para a próxima grande versão do Fedora de forma totalmente segura. Nenhuma das modificações feitas por este guia impede este processo automático.</p>
+
+                        <!-- Caixa de seleção da versão do Fedora -->
+                        <div style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <label for="select-fedora-version" style="font-size: 0.9rem; color: var(--text-muted);">Versão de destino do Fedora:</label>
+                            <select id="select-fedora-version" style="background-color: var(--bg-primary); color: var(--text-main); border: 1px solid var(--border); padding: 0.4rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
+                                <option value="45">Fedora 45</option>
+                                <option value="46">Fedora 46</option>
+                                <option value="47">Fedora 47</option>
+                                <option value="48">Fedora 48</option>
+                            </select>
+                        </div>
+
+                        <button class="btn-executar" onclick="executarUpgradeFedora()">Baixar Nova Versão</button>
+                    </div>
+                    <div class="terminal-log" id="log-system-upgrade"></div>
+                </div>
+
+                <!-- Bloco 4 -->
+                <div class="bloco-comando">
+                    <div class="comando-info">
+                        <h3>Migrar do Canal Beta para o Estável (Release)</h3>
+                        <p>Sincroniza os pacotes locais com o repositório estável de produção do Fedora, fazendo o downgrade ou upgrade necessário dos componentes modificados na versão Beta.</p>
+                        <div class="aviso-caixa">⚠️ Aviso: É obrigatório reiniciar o computador imediatamente após concluir a sincronização dos pacotes.</div>
+                        <button class="btn-executar" onclick="executarComando('distro-sync', 'sudo dnf upgrade --refresh -y && sudo dnf distro-sync -y')">Sincronizar Canal Estável</button>
+                    </div>
+                    <div class="terminal-log" id="log-distro-sync"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+        <script>
+        // Função auxiliar para localizar os botões de execução e reversão dentro do HTML
+        function obterBotoesPorId(idComando) {
+            let btnExecutar, btnReverter;
+            if (idComando === 'dnf-speed') {
+                btnExecutar = document.querySelector("button[onclick='executarAjusteDNF()']");
+            } else if (idComando === 'system-upgrade') {
+                btnExecutar = document.querySelector("button[onclick='executarUpgradeFedora()']");
+            } else {
+                btnExecutar = document.querySelector(`button[onclick*="'${idComando}'"]`);
+            }
+
+            if (btnExecutar && btnExecutar.parentElement) {
+                btnReverter = btnExecutar.parentElement.querySelector('.btn-reverter');
+            }
+            return { btnExecutar, btnReverter };
+        }
+
+        // Aplica o selo visual de executado e altera o botão de reversão
+        function marcarBotaoComoExecutado(idComando) {
+            const { btnExecutar, btnReverter } = obterBotoesPorId(idComando);
+            if (btnExecutar) {
+                if (!btnExecutar.hasAttribute("data-texto-original")) {
+                    btnExecutar.setAttribute("data-texto-original", btnExecutar.innerHTML);
+                }
+                btnExecutar.innerHTML = "✅ Concluído";
+                btnExecutar.style.backgroundColor = "#4b5563"; // Cinza
+                btnExecutar.style.cursor = "default";
+                btnExecutar.disabled = true;
+            }
+            if (btnReverter) {
+                btnReverter.innerHTML = "↩️ Desfazer Alteração";
+                btnReverter.style.backgroundColor = "#ef4444"; // Vermelho ativo
+                btnReverter.disabled = false;
+            }
+        }
+
+        // Restaura os botões para o estado inicial azul (Pronto para re-instalar)
+        function restaurarBotaoOriginal(idComando) {
+            const { btnExecutar, btnReverter } = obterBotoesPorId(idComando);
+            if (btnExecutar) {
+                btnExecutar.innerHTML = btnExecutar.getAttribute("data-texto-original") || "Executar Ajuste";
+                btnExecutar.style.backgroundColor = "var(--accent)"; // Azul padrão
+                btnExecutar.style.cursor = "pointer";
+                btnExecutar.disabled = false;
+            }
+            if (btnReverter) {
+                btnReverter.innerHTML = "Revertido com Sucesso";
+                btnReverter.style.backgroundColor = "#374151"; // Cinza escuro desativado
+                btnReverter.disabled = true;
+            }
+        }
+
+        // Lê o arquivo oculto de progresso assim que o app abre
+        window.onload = async function() {
+            try {
+                const response = await fetch('http://localhost:3000/status');
+                if (response.ok) {
+                    const dados = await response.json();
+                    dados.executados.forEach(id => marcarBotaoComoExecutado(id));
+                }
+            } catch (error) {
+                console.log("Não foi possível carregar o histórico de progresso.");
+            }
+        };
+
+        // Função para executar os comandos reversos (Desinstalações e rollbacks)
+        async function reverterComando(idComando, scriptReversao) {
+            const logBox = document.getElementById(`log-${idComando}`) || document.getElementById('log-dnf-speed') || document.getElementById('log-system-upgrade');
+
+            if (logBox) {
+                logBox.style.display = 'block';
+                logBox.textContent = "Iniciando processo de reversão no sistema...\n";
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/reverter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comando: scriptReversao, idComando: idComando })
+                });
+
+                if (response.ok) {
+                    const dados = await response.json();
+                    if (logBox) {
+                        logBox.textContent += `[Revertendo]: ${scriptReversao}\n\n`;
+                        logBox.textContent += dados.output || "[Sucesso]: O comando reverso foi concluído.";
+                    }
+                    if (dados.success !== false) restaurarBotaoOriginal(idComando);
+                }
+            } catch (error) {
+                if (logBox) logBox.textContent += `[Erro]: Falha na comunicação com o servidor local.`;
+            }
+            if (logBox) logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        // Funções de disparo mantidas e integradas ao novo sistema
+        async function executarAjusteDNF() {
+            const conexoes = document.getElementById('select-downloads').value;
+            const logBox = document.getElementById('log-dnf-speed');
+            const idComando = 'dnf-speed';
+            const comandoMontado = `sudo dnf config-manager setopt max_parallel_downloads=${conexoes} && sudo dnf config-manager setopt fastestmirror=True`;
+
+            logBox.style.display = 'block'; logBox.textContent = "Conectando com o servidor backend...\n"; logBox.scrollTop = logBox.scrollHeight;
+            try {
+                const response = await fetch('http://localhost:3000/executar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comando: comandoMontado, idComando: idComando })
+                });
+                if (response.ok) {
+                    const dados = await response.json();
+                    logBox.textContent += `[Executando]: ${comandoMontado}\n\n`; logBox.textContent += dados.output || "[Ajuste Concluído]";
+                    if (dados.success !== false) marcarBotaoComoExecutado(idComando);
+                }
+            } catch (e) { logBox.textContent += "[Erro] de conexão."; }
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        async function executarUpgradeFedora() {
+            const versao = document.getElementById('select-fedora-version').value;
+            const logBox = document.getElementById('log-system-upgrade');
+            const idComando = 'system-upgrade';
+            const comandoMontado = `sudo dnf upgrade --refresh -y && sudo dnf system-upgrade download --releasever=${versao} -y`;
+
+            logBox.style.display = 'block'; logBox.textContent = "Conectando com o servidor backend...\n"; logBox.scrollTop = logBox.scrollHeight;
+            try {
+                const response = await fetch('http://localhost:3000/executar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comando: comandoMontado, idComando: idComando })
+                });
+                if (response.ok) {
+                    const dados = await response.json();
+                    if (dados.success === false) logBox.textContent += dados.output;
+                    else { logBox.textContent += dados.output || "[Concluído]"; marcarBotaoComoExecutado(idComando); }
+                }
+            } catch (e) { logBox.textContent += "[Erro] de conexão."; }
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        async function executarComando(idComando, scriptComando) {
+            const logBox = document.getElementById(`log-${idComando}`);
+            if (logBox) { logBox.style.display = 'block'; logBox.textContent = "Conectando...\n"; logBox.scrollTop = logBox.scrollHeight; }
+            try {
+                const response = await fetch('http://localhost:3000/executar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comando: scriptComando, idComando: idComando })
+                });
+                if (response.ok) {
+                    const dados = await response.json();
+                    if (logBox) logBox.textContent += dados.output || "[Sucesso]";
+                    if (dados.success !== false) marcarBotaoComoExecutado(idComando);
+                }
+            } catch (e) { if (logBox) logBox.textContent += "[Erro]"; }
+            if (logBox) logBox.scrollTop = logBox.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
